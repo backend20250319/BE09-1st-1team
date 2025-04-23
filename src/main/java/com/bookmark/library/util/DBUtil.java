@@ -1,15 +1,29 @@
 package com.bookmark.library.util;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBUtil {
-    private static final String URL = "jdbc:mysql://localhost:3322/librarydb";
-    private static final String USER = "bookmark";  // 사용자명
-    private static final String PASSWORD = "7bqnW3utj4tgaJWPyusu";  // 실제 비밀번호 입력
+    public static Connection getConnection() {
+        String home = System.getProperty("user.home");
+        String dbPath = home + "/.bookmark/db.properties";
 
-    public static Connection getConnection() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver"); // 드라이버 로딩
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(dbPath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = properties.getProperty("url");
+        try {
+            return DriverManager.getConnection(url, properties);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
