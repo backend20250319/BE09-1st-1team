@@ -4,8 +4,8 @@ import com.bookmark.library.model.Login.View.LoginFalse;
 import com.bookmark.library.model.Login.service.LoginService;
 import com.bookmark.library.util.IO;
 
-public class LoginMainPage {
-    public static void main(String[] args) {
+public class LoginPage {
+    public static void run() {
         LoginService service = new LoginService();
 
         System.out.print("아이디를 입력하세요: ");

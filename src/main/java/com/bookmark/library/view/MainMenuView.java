@@ -1,5 +1,6 @@
 package com.bookmark.library.view;
 
+import com.bookmark.library.model.Login.Main.LoginPage;
 import com.bookmark.library.util.IO;
 
 public class MainMenuView {
@@ -38,7 +39,8 @@ public class MainMenuView {
     }
 
     private void login() {
-
+        LoginPage page = new LoginPage();
+        page.run();
     }
 
     private void searchBook() {
