@@ -1,8 +1,14 @@
 package com.bookmark.library.model.Login.Main;
 
+import com.bookmark.library.model.Login.Session.SessionUser;
 import com.bookmark.library.model.Login.View.LoginFalse;
 import com.bookmark.library.model.Login.service.LoginService;
+import com.bookmark.library.model.UserInfo.Main.UserInfoPage;
 import com.bookmark.library.util.IO;
+
+import java.sql.ResultSet;
+import java.sql.Date;
+import java.sql.SQLException;
 
 public class LoginPage {
 
@@ -22,7 +28,32 @@ public class LoginPage {
 
         if (service.login(username, password)) {
             System.out.println("✅ 로그인 성공!");
-        } else {
+
+
+            ResultSet rs = service.findUser(username, password);
+            try {
+                try {
+                    if (rs != null && rs.next()) {
+                        String member_id = rs.getString("member_id");
+                        String name = rs.getString("username");
+                        Date birth_date = rs.getDate("birth_date");
+                        String email = rs.getString("email");
+
+                        SessionUser session = SessionUser.getInstance();
+                        session.setUser(member_id, name, birth_date, email);
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } finally {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            UserInfoPage.run();
+        }  else{
             LoginFalse.display();   // 로그인 실패 시 로그인 실패 페이지로 이동
         }
     }

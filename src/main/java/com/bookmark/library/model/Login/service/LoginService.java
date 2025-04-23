@@ -26,4 +26,20 @@ public class LoginService {
             return false;
         }
     }
+
+    // 로그인 성공 시 회원정보 반환
+    public ResultSet findUser(String username, String password) {
+        String sql = "SELECT * FROM members WHERE member_id = ? AND password = ?";
+
+        try {
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            return stmt.executeQuery(); // 로그인 성공 시 정보 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
