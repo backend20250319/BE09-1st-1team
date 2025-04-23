@@ -1,6 +1,6 @@
 package com.bookmark.library.model.Login.Session;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class SessionUser {
 
@@ -9,6 +9,7 @@ public class SessionUser {
     private String memberId;
     private String username;
     private Date birthDate;
+    private String phone_number;
     private String email;
 
     private SessionUser() {} // 생성자 private
@@ -20,10 +21,11 @@ public class SessionUser {
         return instance;
     }
 
-    public void setUser(String memberId, String username, Date birthDate, String email) {
+    public void setUser(String memberId, String username, Date birthDate, String phone_number,String email) {
         this.memberId = memberId;
         this.username = username;
         this.birthDate = birthDate;
+        this.phone_number = phone_number;
         this.email = email;
     }
 
@@ -37,6 +39,9 @@ public class SessionUser {
 
     public Date getBirthDate() {
         return birthDate;
+    }
+    public String getPhone_number() {
+        return phone_number;
     }
 
     public String getEmail() {

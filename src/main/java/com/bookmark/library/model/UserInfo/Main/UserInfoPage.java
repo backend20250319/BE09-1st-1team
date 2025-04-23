@@ -12,6 +12,7 @@ public class UserInfoPage {
         System.out.println("아이디: " + session.getMemberId());
         System.out.println("이름: " + session.getUsername());
         System.out.println("생년월일: " + session.getBirthDate());
+        System.out.println("전화번호:" + session.getPhone_number());
         System.out.println("이메일: " + session.getEmail());
         System.out.println();// 대출 중인 도서 목록 출력
         System.out.print("""

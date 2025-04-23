@@ -37,10 +37,11 @@ public class LoginPage {
                         String member_id = rs.getString("member_id");
                         String name = rs.getString("username");
                         Date birth_date = rs.getDate("birth_date");
+                        String phone_number = rs.getString("phone_number");
                         String email = rs.getString("email");
 
                         SessionUser session = SessionUser.getInstance();
-                        session.setUser(member_id, name, birth_date, email);
+                        session.setUser(member_id, name, birth_date, phone_number, email);
                     }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
