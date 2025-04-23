@@ -1,7 +1,7 @@
 package com.bookmark.library.view;
 
 import com.bookmark.library.util.IO;
-
+// 석진님이 만드신 거. 내가 참고해야할 부분
 public class MainMenuView {
     /**
      * 메인 메뉴에 진입합니다.
