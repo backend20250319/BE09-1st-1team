@@ -1,0 +1,28 @@
+package com.bookmark.library.util;
+
+import java.util.Scanner;
+
+public class IO {
+    public static final Scanner scanner = new Scanner(System.in);
+
+    public static int readIntLine() {
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        return n;
+    }
+
+    /**
+     * 사용자로부터 메뉴 선택 번호를 입력받습니다.
+     * 유효하지 않은 번호가 입력되면 재입력을 요구합니다.
+     * @param max 유효한 메뉴 번호의 최대값
+     * @return 입력된 메뉴 번호
+     */
+    public static int selectMenu(int max) {
+        int menu;
+        do {
+            System.out.print(">>> ");
+            menu = readIntLine();
+        } while (menu > max);
+        return menu;
+    }
+}
