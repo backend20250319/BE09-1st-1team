@@ -5,8 +5,14 @@ import com.bookmark.library.model.Login.service.LoginService;
 import com.bookmark.library.util.IO;
 
 public class LoginPage {
+
+    public static void main(String[] args) {
+        run(); // IntelliJ에서 실행될 때 진입점
+    }
+
     public static void run() {
         LoginService service = new LoginService();
+        System.out.println("==== BOOKMARK ====");
 
         System.out.print("아이디를 입력하세요: ");
         String username = IO.scanner.nextLine();

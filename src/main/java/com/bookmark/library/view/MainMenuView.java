@@ -39,8 +39,8 @@ public class MainMenuView {
     }
 
     private void login() {
-        LoginPage page = new LoginPage();
-        page.run();
+//        LoginPage page = new LoginPage();
+//        page.run();
     }
 
     private void searchBook() {
