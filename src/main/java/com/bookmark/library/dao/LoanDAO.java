@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoanDAO {
     private final Connection conn;
@@ -49,4 +51,28 @@ public class LoanDAO {
             throw new RuntimeException("Failed to create loan record", e);
         }
     }
+
+    public List<String> getCurrentLoans(String memberId) {
+        String sql = """
+        SELECT b.title
+        FROM loans l
+        JOIN books b ON l.isbn = b.isbn
+        WHERE l.member_id = ? AND l.return_date IS NULL
+    """;
+
+        List<String> loans = new ArrayList<>();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, memberId);
+            var rs = pstmt.executeQuery();
+            while (rs.next()) {
+                loans.add(rs.getString("title")); // 도서 제목을 리스트에 저장
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("📛 대출 중인 도서 제목을 불러오는데 실패했습니다.", e);
+        }
+
+        return loans;
+    }
+
 }

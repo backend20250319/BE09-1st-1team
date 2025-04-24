@@ -100,10 +100,5 @@ public class ShowBookDetailView {
             System.out.println("잘못된 입력입니다. 선택 메뉴에 있는 번호를 입력해주세요.");
             throw new RuntimeException(e);
         }
-
     }
-
-
-
-
 }
