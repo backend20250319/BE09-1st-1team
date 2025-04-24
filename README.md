@@ -6,6 +6,18 @@
 키워드 검색
 ![Image](https://github.com/user-attachments/assets/83dccda4-394b-4b1e-ac93-419a77512d2e)
 
+상세페이지
+![Image](https://github.com/user-attachments/assets/7ee0107d-41e4-46e3-a2ad-2aaafd15adbb)
+
+대출하기 누른 화면
+![Image](https://github.com/user-attachments/assets/3ac7c0ab-989e-4e1d-b210-05bfd0cd4d65)
+
+로그인 화면
+![Image](https://github.com/user-attachments/assets/c9f0d112-1acf-4516-9201-695d214d2e19)
+
+대출 화면
+![Image](https://github.com/user-attachments/assets/71d54b36-dd73-4a8d-84e2-300163c6259c)
+
 # 요구사항 명세서
 ![Image](https://github.com/user-attachments/assets/e8a8b571-a382-426b-902c-89ee5a28a365)
 
