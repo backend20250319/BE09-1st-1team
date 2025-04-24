@@ -21,5 +21,4 @@ public class ReviewService {
     public List<Review> getReviewsByiSbn(String isbn) {
         return reviewDAO.getReviewsByIsbn(isbn);
     }
-
 }

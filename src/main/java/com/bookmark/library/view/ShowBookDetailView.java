@@ -10,13 +10,13 @@ import com.bookmark.library.service.LoanService;
 import com.bookmark.library.service.ReviewService;
 import com.bookmark.library.util.IO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ShowBookDetailView {
-    Book book = new Book();
-    private static Member currentMember = null; // 현재 로그인한 회원
+
     private static ReviewService reviewService = new ReviewService();
 
 
@@ -27,8 +27,10 @@ public class ShowBookDetailView {
     public static void showBookDetail(Book book) {
         List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
         book.setReviews(reviews);
+
         LoanDAO loanDAO = new LoanDAO();
         LoanService loanService = new LoanService(loanDAO);
+        LoanView loanView = new LoanView(loanService);
 
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
@@ -40,7 +42,7 @@ public class ShowBookDetailView {
                 "권 (" + (book.isAvailable() ? "대출 가능" : "대출 불가") + ")");
         System.out.println("📖 책 소개: " + book.getIntroduction());
 
-        // 리뷰 표시
+        // 리뷰 출력
         System.out.println("💬 리뷰");
         if (book.getReviews().isEmpty()) {
             System.out.println("아직 등록된 리뷰가 없습니다.");
@@ -65,12 +67,12 @@ public class ShowBookDetailView {
 
             switch (choice) {
                 case 0:
-                    // 통합 검색 페이지로 이동 코드
                     System.out.println("통합 검색 페이지로 돌아갑니다.");
-                    //
                     return;
-                case 1:
-                    handleLoan(book);
+                    return;
+                case 1: // 대출하기
+                    loanView.showLoanPage(book);
+                    showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
                     break;
                 case 2:
                     // 리뷰 작성 페이지로 이동 코드
@@ -89,28 +91,5 @@ public class ShowBookDetailView {
         }
 
     }
-
-    private static void handleLoan(Book book) {
-        if (! LoginContext.isLoggedIn()) {
-            System.out.println("⚠ 로그인 후 이용 가능한 서비스입니다.");
-            showBookDetail(book);
-            return;
-        }
-
-        Member currentMember = LoginContext.getCurrentUser();
-        LoanService loanService = new LoanService(new LoanDAO());
-
-        try {
-            loanService.loanBook(currentMember, book);
-            System.out.println("📘 도서가 성공적으로 대출되었습니다!\"");
-        } catch (LoanFailureException e) {
-            System.out.println("❌ 대출 실패 : + e.getReason().getMessage()");
-        } catch (Exception e) {
-            System.out.println("⚠ 대출 처리 중 오류가 발생했습니다. ");
-        }
-
-        showBookDetail(book);
-    }
-
 
 }
