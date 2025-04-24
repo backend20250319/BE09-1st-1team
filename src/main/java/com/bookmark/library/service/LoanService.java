@@ -4,10 +4,14 @@ import com.bookmark.library.dao.LoanDAO;
 import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.common.LoanFailureReason;
+import com.bookmark.library.model.LoanInfo;
 import com.bookmark.library.model.Member;
 
+import java.time.LocalDate;
+
 public class LoanService {
-    public static final int MAX_LOAN_COUNT = 3;
+    private static final int MAX_LOAN_COUNT = 3;
+    private static final int LOAN_DURATION_DAYS = 7;
 
     private final LoanDAO loanDAO;
 
@@ -15,17 +19,25 @@ public class LoanService {
         this.loanDAO = loanDAO;
     }
 
+    public LoanInfo getLoanInfo(Member member) {
+        int current = getLoanCount(member.getId());
+        LocalDate loanDate = LocalDate.now();
+        LocalDate dueDate = loanDate.plusDays(LOAN_DURATION_DAYS);
+        return new LoanInfo(loanDate, dueDate, current, MAX_LOAN_COUNT - current);
+    }
+
     /**
      * 책을 빌립니다.
      * @param member 책을 빌릴 회원
      * @param book 빌릴 책
      */
-    public void loanBook(Member member, Book book) throws LoanFailureException {
+    public void loanBook(Member member, Book book, LocalDate loanDate, LocalDate dueDate) throws LoanFailureException {
         var reason = canLoan(member, book);
         if (reason != null) {
             throw new LoanFailureException(reason);
         }
-        throw new RuntimeException("Not yet implemented");
+
+        loanDAO.createLoan(member.getId(), book.getIsbn(), loanDate, dueDate);
     }
 
     /**
