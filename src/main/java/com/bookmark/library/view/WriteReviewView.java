@@ -11,9 +11,14 @@ import com.bookmark.library.util.IO;
 import java.util.ArrayList;
 import java.util.Date;
 
-// 리뷰 작성 페이지
+import static com.bookmark.library.util.IO.pressEnterToProceed;
+
 public class WriteReviewView {
 
+    /***
+     * BOOK-008: 리뷰 작성 페이지
+     * @param book 리뷰를 작성할 도서 객체
+     */
     public static void writeReview(Book book) {
 
         if (LoginContext.isLoggedIn()) {
@@ -59,7 +64,7 @@ public class WriteReviewView {
         } else {
             System.out.println("⚠ 리뷰를 작성하려면 로그인이 필요합니다.");
         }
-        System.out.println("(확인: ENTER)"); // 일단 넣어놈.
+        pressEnterToProceed();
         ShowBookDetailView.showBookDetail(book); // 흐름을 위해 리뷰 작성이 끝난 후 다시 도서 상세 페이지로 돌아가도록 함.
 
     }

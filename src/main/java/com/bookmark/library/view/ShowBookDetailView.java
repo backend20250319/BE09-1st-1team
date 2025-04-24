@@ -1,9 +1,12 @@
 package com.bookmark.library.view;
 
 import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.dao.LoanDAO;
+import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.model.Review;
+import com.bookmark.library.service.LoanService;
 import com.bookmark.library.service.ReviewService;
 import com.bookmark.library.util.IO;
 
@@ -11,14 +14,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// 도서 상세 표시
 public class ShowBookDetailView {
     Book book = new Book();
     private static Member currentMember = null; // 현재 로그인한 회원
-
     private static ReviewService reviewService = new ReviewService();
 
+
+    /***
+     *  BOOK-005: 도서 상세 정보 표시
+     * @param book
+     */
     public static void showBookDetail(Book book) {
+        List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
+        book.setReviews(reviews);
+        LoanDAO loanDAO = new LoanDAO();
+        LoanService loanService = new LoanService(loanDAO);
+
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
         System.out.println("📘 도서명: " + book.getTitle());
@@ -35,9 +46,9 @@ public class ShowBookDetailView {
             System.out.println("아직 등록된 리뷰가 없습니다.");
         } else {
             for (Review review : book.getReviews()) {
-                System.out.println("사용자 ID: " + review.getId());
+                System.out.println("사용자 ID: " + review.getMemberId());
                 System.out.println(" \"" + review.getContent() + "\"");
-                System.out.println(" 별점 : " + "★".repeat(review.getRating()) + "☆".repeat(review.getRating()));
+                System.out.println(" 별점 : " + "★".repeat(Math.max(0,review.getRating())) + "☆".repeat(5 - review.getRating()));
                 System.out.println();
             }
         }
@@ -56,23 +67,19 @@ public class ShowBookDetailView {
                 case 0:
                     // 통합 검색 페이지로 이동 코드
                     System.out.println("통합 검색 페이지로 돌아갑니다.");
-                    KeywordSearch.showKerywordSearch();
+                    //
                     return;
                 case 1:
-                    // 대출 기능 구현 예정
-                    if (LoginContext.isLoggedIn()) {
-                        Member user = LoginContext.getCurrentUser();
-                        //BorrowBookView.borrowBook(book, user); // ← 팀원이 만든 기능 호출
-                    } else {
-                        System.out.println("로그인이 필요합니다.");
-                    }
+                    handleLoan(book);
                     break;
                 case 2:
                     // 리뷰 작성 페이지로 이동 코드
                     WriteReviewView.writeReview(book);
+                    showBookDetail(book); // 리뷰 작성 후 상세 보기로 자동 복귀
                     break;
                 default:
                     System.out.println("잘못된 입력입니다.");
+                    showBookDetail(book);
             }
 
         } catch (Exception e) {
@@ -83,7 +90,27 @@ public class ShowBookDetailView {
 
     }
 
+    private static void handleLoan(Book book) {
+        if (! LoginContext.isLoggedIn()) {
+            System.out.println("⚠ 로그인 후 이용 가능한 서비스입니다.");
+            showBookDetail(book);
+            return;
+        }
 
+        Member currentMember = LoginContext.getCurrentUser();
+        LoanService loanService = new LoanService(new LoanDAO());
+
+        try {
+            loanService.loanBook(currentMember, book);
+            System.out.println("📘 도서가 성공적으로 대출되었습니다!\"");
+        } catch (LoanFailureException e) {
+            System.out.println("❌ 대출 실패 : + e.getReason().getMessage()");
+        } catch (Exception e) {
+            System.out.println("⚠ 대출 처리 중 오류가 발생했습니다. ");
+        }
+
+        showBookDetail(book);
+    }
 
 
 }
