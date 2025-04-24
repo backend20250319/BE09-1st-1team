@@ -18,20 +18,19 @@ import java.util.List;
 
 public class ShowBookDetailView {
 
-    private static ReviewService reviewService = new ReviewService();
-
+    private ReviewService reviewService = new ReviewService();
+    private LoanView loanView;
+    public ShowBookDetailView(LoanView loanView) {
+        this.loanView = loanView;
+    }
 
     /***
      *  BOOK-005: 도서 상세 정보 표시
      * @param book
      */
-    public static void showBookDetail(Book book) {
+    public void showBookDetail(Book book) {
         List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
         book.setReviews(reviews);
-
-        LoanDAO loanDAO = new LoanDAO(DBUtil.getConnection()); // Connection 직접 전달
-        LoanService loanService = new LoanService(loanDAO);
-        LoanView loanView = new LoanView(loanService);
 
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
