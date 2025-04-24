@@ -1,5 +1,6 @@
 package com.bookmark.library.view.loginview;
 
+import com.bookmark.library.common.ReturnToHomeException;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.MainMenuView;
 
@@ -16,12 +17,11 @@ public class SignUpFailPage {
         int choice = IO.readIntLine();
         switch (choice) {
             case 1 -> {
-                new SignUpPage().run();  // 회원가입 페이지 재시도
+                SignUpPage.run();  // 회원가입 페이지 재시도
                 return;
             }
             case 0 -> {
-                new MainMenuView().showMainMenu();  // 메인 메뉴로 이동
-                return;
+                throw new ReturnToHomeException();  // 메인 메뉴로 이동
             }
             default -> System.out.println("⚠️ 올바른 번호를 입력해주세요.");
         }
