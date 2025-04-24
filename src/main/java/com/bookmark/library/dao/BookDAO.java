@@ -7,12 +7,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
+import java.util.Set;
 
 public class BookDAO {
     private Connection conn;
     public BookDAO(Connection conn){
         this.conn = conn;
     }
+
+    public static Set<String> getBooksByCategory(int categoryId) {
+        return Set.of();
+    }
+
     public void insertBook(Book book)throws SQLException {
         String sql = "insert into books values(isbn,title,category_id,author,publisher,publish_date,introduction,stock_quantity,age_limit)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){

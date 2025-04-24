@@ -1,5 +1,6 @@
 package com.bookmark.library.view;
 
+import com.bookmark.library.dao.BookDAO;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
@@ -26,8 +27,8 @@ public class CategorySearch {
             return true;
         }
 
-       // Set<String> results = Book.getBooksByCategory(category_id);
-       // SearchView.setCategoryResults(results);
+        Set<String> results = BookDAO.getBooksByCategory(category_id);
+        SearchView.setCategoryResults(results);
         return true;
     }
 }
