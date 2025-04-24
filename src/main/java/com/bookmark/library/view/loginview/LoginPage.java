@@ -28,10 +28,8 @@ public class LoginPage {
                 return;
             }
 
-            // 현재 로그인된 사용자 정보 출력 (선택)
+            // 현재 로그인된 사용자 정보 출력
             System.out.println("환영합니다, " + user.getUsername() + "님!");
-
-            new HomeView().showHome();
         } else {
             LoginFalse.display(); // 로그인 실패 시 로그인 실패 페이지로 이동
         }
