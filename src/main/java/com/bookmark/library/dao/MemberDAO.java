@@ -1,5 +1,6 @@
 package com.bookmark.library.dao;
 
+import com.bookmark.library.model.Member;
 import com.bookmark.library.util.DBUtil;
 
 import java.sql.Connection;
@@ -8,6 +9,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class MemberDAO {
+
+    public static Member getUserInfo(String memberId) {
+        String sql = "SELECT * FROM members WHERE member_id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, memberId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Member(
+                            rs.getString("member_id"),
+                            rs.getString("password"),
+                            rs.getString("username"),
+                            rs.getDate("birth_date"),
+                            rs.getString("phone_number"),
+                            rs.getString("email")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     // 로그인 확인 메서드
     public static boolean validateLogin(String memberId, String password) {

@@ -1,19 +1,20 @@
 package com.bookmark.library.view.userinfoview;
 
-import com.bookmark.library.model.Session.SessionUser;
+import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.model.Member;
 import com.bookmark.library.util.IO;
 
 public class UserInfoPage {
     public static void run() {
-        SessionUser session = SessionUser.getInstance();
+        Member user = LoginContext.getCurrentUser();
 
         System.out.println("==== BOOKMARK MYPAGE ====");
-        System.out.println(session.getUsername() + "의 마이페이지");
-        System.out.println("아이디: " + session.getMemberId());
-        System.out.println("이름: " + session.getUsername());
-        System.out.println("생년월일: " + session.getBirthDate());
-        System.out.println("전화번호:" + session.getPhone_number());
-        System.out.println("이메일: " + session.getEmail());
+        System.out.println(user.getUsername() + "의 마이페이지");
+        System.out.println("아이디: " + user.getId());
+        System.out.println("이름: " + user.getUsername());
+        System.out.println("생년월일: " + user.getBirthDate());
+        System.out.println("전화번호: " + user.getPhoneNumber());
+        System.out.println("이메일: " + user.getEmail());
         System.out.println();// 대출 중인 도서 목록 출력
         System.out.print("""
                 1. 개인정보 수정

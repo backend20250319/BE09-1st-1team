@@ -1,6 +1,6 @@
 package com.bookmark.library.view.loginview;
 
-import com.bookmark.library.model.Session.SessionUser;
+import com.bookmark.library.auth.Session.SessionUser;
 import com.bookmark.library.service.LoginService;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.userinfoview.UserInfoPage;

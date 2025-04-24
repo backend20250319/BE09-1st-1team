@@ -30,4 +30,6 @@ public class IO {
         System.out.println("(확인: ENTER)");
         scanner.nextLine();
     }
+
+
 }
