@@ -2,41 +2,41 @@ package com.bookmark.library.view;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-public class SearchView {
-    public static Set<String> searchResults;
-    private static String books;
+public class SearchResultView {
+    public static List<Book> searchResults;
 
-    private static void showSearchResults() {
+    public SearchResultView(List<Book> results) {
+        this.searchResults = results;
+    }
+
+    private void showSearchResults() {
         System.out.println("==== [검색 결과] ====");
         if (searchResults == null || searchResults.isEmpty()) {
             System.out.println("검색 결과가 없습니다.");
             return;
         }
 
-        int index = 1;
-        for (String result : searchResults) {
-            System.out.println("[" + index + "] " + result);
-            index++;
+        for (int i = 0; i < searchResults.size(); i++) {
+            Book book = searchResults.get(i);
+            System.out.println("[" + (i+1) + "] " + book.getTitle());
         }
+        System.out.println("0. 뒤로");
 
-        System.out.println("0. 홈으로");
-        System.out.println("1. 책 상세 정보");
-        switch (IO.selectMenu(searchResults.size())){
-            case 0 -> {} //처음으로
-            case 1 -> {} //상세정보
-            default -> {
-                System.out.println("잘못된 입력입니다.");
-                return ;
-            }
-        }
+        int choice = IO.selectMenu(searchResults.size());
+        if (choice == 0) return;
+
+        Book book = searchResults.get(choice - 1);
+        ShowBookDetailView.showBookDetail(book);
     }
 
 
-    public static Set<String> categoryResults;
+    public static List<Book> categoryResults;
 
-    public static void setCategoryResults(Set<String> results) {
-        categoryResults = results;
+    public static void setCategoryResults(Set<Book> results) {
+        categoryResults = new ArrayList<>(results);
         showCategoryResults();
     }
 
@@ -50,22 +50,23 @@ public class SearchView {
         }
 
         int index = 1;
-        for (String book : categoryResults) {
-            System.out.println("[" + index++ + "] " + book);
+        for (Book book : categoryResults) {
+            System.out.println("[" + index++ + "] " + book.getTitle() + " - " + book.getAuthor());
         }
 
         System.out.println("""
-                
-                0. 메인화면으로 이동
-                1. 상세페이지로 이동
-                """);
+        
+        0. 메인화면으로 이동
+        1 ~ N. 상세페이지로 이동
+        """);
 
         int choice = IO.selectMenu(categoryResults.size());
-        if (choice == 0) { return; }
+        if (choice == 0) return;
 
-        Book book = categoryResults[choice=1];
+        Book book = categoryResults.get(choice - 1);
         ShowBookDetailView.showBookDetail(book);
 
         System.out.println("===========================");
     }
+
 }
