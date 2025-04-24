@@ -36,7 +36,4 @@ public class LoginContext {
     public static boolean isLoggedIn() {
         return loginContext != null && loginContext.memberId != null;
     }
-
-    Member user = LoginContext.getCurrentUser();
-    String member_Id = user.getId();
 }

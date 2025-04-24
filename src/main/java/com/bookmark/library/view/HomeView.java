@@ -1,6 +1,7 @@
 package com.bookmark.library.view;
 
 import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.dao.LoanDAO;
 import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.loginview.LoginPage;
@@ -9,6 +10,11 @@ import com.bookmark.library.view.userinfoview.UserInfoPage;
 
 public class HomeView {
     private boolean terminate = false;
+    private final UserInfoPage userInfoPage;
+
+    public HomeView(LoanDAO loanDAO) {
+        userInfoPage = new UserInfoPage(loanDAO);
+    }
 
     public void showHome() {
         while (!terminate) {
@@ -38,7 +44,7 @@ public class HomeView {
 
         switch (IO.selectMenu(4)) {
             case 0 -> terminate = true;
-            case 1 -> {} // UserInfoPage.run();
+            case 1 -> userInfoPage.run();
             case 2 -> logout();
             case 3 -> searchBook();
             case 4 -> viewCategories();

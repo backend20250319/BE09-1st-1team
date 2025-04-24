@@ -1,6 +1,7 @@
 package com.bookmark.library.view.userinfoview;
 
 import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.Main;
 import com.bookmark.library.util.IO;
@@ -10,7 +11,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class UserInfoPage {
-    private LoanDAO loanDAO;
+    private final LoanDAO loanDAO;
 
     public UserInfoPage(LoanDAO loanDAO) {
         this.loanDAO = loanDAO;
@@ -52,13 +53,8 @@ public class UserInfoPage {
 
         switch (choice) {
             case 1 -> InfoEditPage.run(); // 개인정보 수정 화면 이동
-            case 0 -> throw new RuntimeException();  // 메인 메뉴로 이동
-            default -> {
-                if (choice < 0 || choice > 1) { // 0, 1 제외 오류 출력
-                    System.out.println("⚠️ 올바른 번호를 입력해주세요.");
-                }
-            }
+            case 2 -> System.out.println("아직 구현되지 않은 기능입니다.");  // 반납 메뉴 이동
+            case 0 -> { return; } // 뒤로가기
         }
     }
-
 }
