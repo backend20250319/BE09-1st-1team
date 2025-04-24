@@ -1,13 +1,12 @@
 package com.bookmark.library.view;
 
+import com.bookmark.library.dao.BookDAO;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
 import java.util.Set;
 
 public class CategorySearch {
-
-    private final Book book1 = new book1();
 
     public boolean showCategoryView() {
         System.out.println("""
@@ -28,7 +27,7 @@ public class CategorySearch {
             return true;
         }
 
-        Set<String> results = book1.getBooksByCategory(category_id);
+        Set<String> results = BookDAO.getBooksByCategory(category_id);
         SearchView.setCategoryResults(results);
         return true;
     }

@@ -26,8 +26,17 @@ public class IO {
         return menu;
     }
 
+    public static boolean confirm(String message) {
+        System.out.println(message + " (Y/N)");
+        System.out.println(">>> ");
+        String input = scanner.nextLine();
+        return input.equalsIgnoreCase("Y");
+    }
+
     public static void pressEnterToProceed() {
-        System.out.println("(확인: ENTER)");
+        System.out.print("(확인: ENTER)");
         scanner.nextLine();
     }
+
+
 }
