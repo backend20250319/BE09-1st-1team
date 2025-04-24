@@ -8,6 +8,7 @@ import com.bookmark.library.model.Member;
 import com.bookmark.library.model.Review;
 import com.bookmark.library.service.LoanService;
 import com.bookmark.library.service.ReviewService;
+import com.bookmark.library.util.DBUtil;
 import com.bookmark.library.util.IO;
 
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class ShowBookDetailView {
         List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
         book.setReviews(reviews);
 
-        LoanDAO loanDAO = new LoanDAO();
+        LoanDAO loanDAO = new LoanDAO(DBUtil.getConnection()); // Connection 직접 전달
         LoanService loanService = new LoanService(loanDAO);
         LoanView loanView = new LoanView(loanService);
 
@@ -69,8 +70,8 @@ public class ShowBookDetailView {
                 case 0:
                     System.out.println("통합 검색 페이지로 돌아갑니다.");
                     return;
-                    return;
-                case 1: // 대출하기
+                case 1:
+                    // 대출하기
                     loanView.showLoanPage(book);
                     showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
                     break;
