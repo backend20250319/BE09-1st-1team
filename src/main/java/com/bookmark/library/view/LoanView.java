@@ -1,5 +1,6 @@
 package com.bookmark.library.view;
 
+import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.model.Book;
@@ -20,9 +21,7 @@ public class LoanView {
     }
 
     public void showLoanPage(Book book) {
-        Member member = null; // TODO: LoginContext에서 얻어와야 함
-        member = new Member(); // 테스트용 임시객체
-
+        Member member = LoginContext.getCurrentUser();
         if (member == null) {
             loginRequired();
             return;
