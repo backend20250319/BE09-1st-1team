@@ -65,7 +65,5 @@ public class WriteReviewView {
             System.out.println("⚠ 리뷰를 작성하려면 로그인이 필요합니다.");
         }
         pressEnterToProceed();
-        ShowBookDetailView.showBookDetail(book); // 흐름을 위해 리뷰 작성이 끝난 후 다시 도서 상세 페이지로 돌아가도록 함.
-
     }
 }
