@@ -1,45 +1,37 @@
 package com.bookmark.library.view;
 
 import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.dao.LoanDAO;
+import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.model.Review;
+import com.bookmark.library.service.LoanService;
 import com.bookmark.library.service.ReviewService;
+import com.bookmark.library.util.DBUtil;
 import com.bookmark.library.util.IO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// 도서 상세 표시
 public class ShowBookDetailView {
-    Book book = new Book();
-    private static Member currentMember = null; // 현재 로그인한 회원
 
-    private static ReviewService reviewService = new ReviewService();
-
-    //book.searchBook();
-    public static void main(String[] args) {
-        // 테스트용 Book 객체 생성
-        Book testBook = new Book(
-                "978-89-6848-556-3",
-                "자바의 정석",
-                1,
-                "남궁성",
-                "도우출판",
-                new Date(),
-                5,
-                10,
-                "자바의 기초부터 객체지향개념을 넘어 실전활용까지",
-                new ArrayList<>(),
-                12
-        );
-
-        // 도서 상세 정보 출력
-        ShowBookDetailView.showBookDetail(testBook);
+    private ReviewService reviewService = new ReviewService();
+    private LoanView loanView;
+    public ShowBookDetailView(LoanView loanView) {
+        this.loanView = loanView;
     }
 
-    public static void showBookDetail(Book book) {
+    /***
+     *  BOOK-005: 도서 상세 정보 표시
+     * @param book
+     */
+    public void showBookDetail(Book book) {
+        List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
+        book.setReviews(reviews);
+
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
         System.out.println("📘 도서명: " + book.getTitle());
@@ -50,15 +42,15 @@ public class ShowBookDetailView {
                 "권 (" + (book.isAvailable() ? "대출 가능" : "대출 불가") + ")");
         System.out.println("📖 책 소개: " + book.getIntroduction());
 
-        // 리뷰 표시
+        // 리뷰 출력
         System.out.println("💬 리뷰");
         if (book.getReviews().isEmpty()) {
             System.out.println("아직 등록된 리뷰가 없습니다.");
         } else {
             for (Review review : book.getReviews()) {
-                System.out.println("사용자 ID: " + review.getId());
+                System.out.println("사용자 ID: " + review.getMemberId());
                 System.out.println(" \"" + review.getContent() + "\"");
-                System.out.println(" 별점 : " + "★".repeat(review.getRating()) + "☆".repeat(review.getRating()));
+                System.out.println(" 별점 : " + "★".repeat(Math.max(0,review.getRating())) + "☆".repeat(5 - review.getRating()));
                 System.out.println();
             }
         }
@@ -75,24 +67,21 @@ public class ShowBookDetailView {
 
             switch (choice) {
                 case 0:
-                    // 통합 검색 페이지로 이동 코드
                     System.out.println("통합 검색 페이지로 돌아갑니다.");
                     return;
                 case 1:
-                    // 대출 기능 구현 예정
-                    if (LoginContext.isLoggedIn()) {
-                        Member user = LoginContext.getCurrentUser();
-                        //BorrowBookView.borrowBook(book, user); // ← 팀원이 만든 기능 호출
-                    } else {
-                        System.out.println("로그인이 필요합니다.");
-                    }
+                    // 대출하기
+                    loanView.showLoanPage(book);
+                    showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
                     break;
                 case 2:
                     // 리뷰 작성 페이지로 이동 코드
                     WriteReviewView.writeReview(book);
+                    showBookDetail(book); // 리뷰 작성 후 상세 보기로 자동 복귀
                     break;
                 default:
                     System.out.println("잘못된 입력입니다.");
+                    showBookDetail(book);
             }
 
         } catch (Exception e) {
@@ -102,8 +91,5 @@ public class ShowBookDetailView {
         }
 
     }
-
-
-
 
 }

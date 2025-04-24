@@ -17,8 +17,8 @@ public class ReviewService {
         return reviewDAO.insertReview(review);
     }
 
-    // 리뷰 목록 조회 - 리뷰 자체 id로 불러들임.
-    public List<Review> getReviewsById(int id) {
-        return reviewDAO.getReviewsById(id);
+    // 특정 도서의 모든 리뷰 가져오기 (ISBN 기준)
+    public List<Review> getReviewsByiSbn(String isbn) {
+        return reviewDAO.getReviewsByIsbn(isbn);
     }
 }
