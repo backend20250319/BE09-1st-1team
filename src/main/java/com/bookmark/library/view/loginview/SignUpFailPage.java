@@ -1,7 +1,5 @@
-package com.bookmark.library.model.Login.View;
+package com.bookmark.library.view.loginview;
 
-import com.bookmark.library.model.Login.Main.LoginPage;
-import com.bookmark.library.model.Login.Main.SignUpPage;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.MainMenuView;
 

@@ -1,6 +1,6 @@
-package com.bookmark.library.model.UserInfo.Main;
+package com.bookmark.library.view.userinfoview;
 
-import com.bookmark.library.model.Login.Session.SessionUser;
+import com.bookmark.library.model.Session.SessionUser;
 import com.bookmark.library.util.IO;
 
 public class UserInfoPage {

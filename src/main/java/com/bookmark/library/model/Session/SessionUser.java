@@ -1,4 +1,4 @@
-package com.bookmark.library.model.Login.Session;
+package com.bookmark.library.model.Session;
 
 import java.sql.Date;
 

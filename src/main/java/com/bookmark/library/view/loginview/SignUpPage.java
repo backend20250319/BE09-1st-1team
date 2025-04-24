@@ -1,7 +1,6 @@
-package com.bookmark.library.model.Login.Main;
+package com.bookmark.library.view.loginview;
 
-import com.bookmark.library.model.Login.View.SignUpFailPage;
-import com.bookmark.library.model.Login.service.SignUpService;
+import com.bookmark.library.service.SignUpService;
 import com.bookmark.library.util.IO;
 
 import java.time.LocalDate;
@@ -77,6 +76,7 @@ public class SignUpPage {
     }
 
     public static void main(String[] args) {
+
         run(); // 직접 실행도 가능하게 설정
     }
 }
