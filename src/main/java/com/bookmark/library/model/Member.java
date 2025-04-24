@@ -1,6 +1,9 @@
 package com.bookmark.library.model;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class Member {
@@ -74,8 +77,14 @@ public class Member {
     }
 
     public int getAge() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthDate = format.parse(this.birthDate);
+        // birthDate(Date)를 LocalDate로 전환 - 생년월일로 나이 계산
+        LocalDate birthLocalDate = this.birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // 현재 날짜
+        LocalDate now = LocalDate.now();
+
+        // 나이 계산
+        return Period.between(birthLocalDate, now).getYears();
     }
 
     @Override

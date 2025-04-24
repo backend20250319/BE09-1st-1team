@@ -9,11 +9,13 @@ import com.bookmark.library.util.IO;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 // 도서 상세 표시
 public class ShowBookDetailView {
     Book book = new Book();
     private static Member currentMember = null; // 현재 로그인한 회원
+
     private static ReviewService reviewService = new ReviewService();
 
     //book.searchBook();
@@ -65,13 +67,11 @@ public class ShowBookDetailView {
         System.out.println("1. 대출하기");
         System.out.println("2. 리뷰하기");
         System.out.println("0. 뒤로가기");
-        System.out.print(">>> ");
 
         // 사용자 입력 처리 - 메뉴 최대값은 2
         int choice = IO.selectMenu(2);
 
         try {
-            choice = Integer.parseInt(System.console().readLine());
 
             switch (choice) {
                 case 0:
@@ -89,7 +89,7 @@ public class ShowBookDetailView {
                     break;
                 case 2:
                     // 리뷰 작성 페이지로 이동 코드
-                    //reviewService.writeReview();
+                    WriteReviewView.writeReview(book);
                     break;
                 default:
                     System.out.println("잘못된 입력입니다.");
