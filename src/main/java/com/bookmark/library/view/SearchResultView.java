@@ -1,4 +1,5 @@
 package com.bookmark.library.view;
+import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
 import java.util.Set;
@@ -21,7 +22,7 @@ public class SearchView {
 
         System.out.println("0. 홈으로");
         System.out.println("1. 책 상세 정보");
-        switch (IO.selectMenu(1)){
+        switch (IO.selectMenu(searchResults.size())){
             case 0 -> {} //처음으로
             case 1 -> {} //상세정보
             default -> {
@@ -59,19 +60,11 @@ public class SearchView {
                 1. 상세페이지로 이동
                 """);
 
-        switch (IO.selectMenu(1)) {
-            case 0 -> {
-                System.out.println("메인화면으로 이동합");
-                // 메인 메뉴로 이동
-            }
-            case 1 -> {
-                System.out.println("상세페이지로 이동");
-                // 상세 페이지 이동
-            }
-            default -> {
-                System.out.println("잘못된 입력입니다.");
-            }
-        }
+        int choice = IO.selectMenu(categoryResults.size());
+        if (choice == 0) { return; }
+
+        Book book = categoryResults[choice=1];
+        ShowBookDetailView.showBookDetail(book);
 
         System.out.println("===========================");
     }
