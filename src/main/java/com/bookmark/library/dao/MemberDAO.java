@@ -55,18 +55,32 @@ public class MemberDAO {
     }
 
     // 유저 정보 조회
-    public static ResultSet getUserInfo(String memberId, String password) {
+    public static Member getUserInfo(String memberId, String password) {
         String sql = "SELECT * FROM members WHERE member_id = ? AND password = ?";
-        try {
-            Connection conn = DBUtil.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, memberId);
             stmt.setString(2, password);
-            return stmt.executeQuery();
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Member(
+                            rs.getString("member_id"),
+                            rs.getString("password"),
+                            rs.getString("username"),
+                            rs.getDate("birth_date"),
+                            rs.getString("phone_number"),
+                            rs.getString("email")
+                    );
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+
+        return null;
     }
 
     // 회원 가입 저장

@@ -1,13 +1,10 @@
 package com.bookmark.library.view.loginview;
 
-import com.bookmark.library.auth.Session.SessionUser;
+import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.model.Member;
 import com.bookmark.library.service.LoginService;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.userinfoview.UserInfoPage;
-
-import java.sql.ResultSet;
-import java.sql.Date;
-import java.sql.SQLException;
 
 public class LoginPage {
 
@@ -21,30 +18,17 @@ public class LoginPage {
         System.out.print("비밀번호를 입력하세요: ");
         String password = IO.scanner.nextLine();
 
-        if (service.login(username, password)) {
+        if (LoginContext.login(username, password)) {
             System.out.println("✅ 로그인 성공!");
 
-            ResultSet rs = service.findUser(username, password);
-            try {
-                if (rs != null && rs.next()) {
-                    String member_id = rs.getString("member_id");
-                    String name = rs.getString("username");
-                    Date birth_date = rs.getDate("birth_date");
-                    String phone_number = rs.getString("phone_number");
-                    String email = rs.getString("email");
-
-                    SessionUser session = SessionUser.getInstance();
-                    session.setUser(member_id, name, birth_date, phone_number, email);
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+            Member user = LoginContext.getCurrentUser();
+            if (user == null) {
+                System.out.println("❌ 사용자 정보를 불러오는 데 실패했습니다.");
+                return;
             }
+
+            // 현재 로그인된 사용자 정보 출력 (선택)
+            System.out.println("환영합니다, " + user.getUsername() + "님!");
 
             UserInfoPage.run();
         } else {

@@ -22,7 +22,7 @@ public class LoginContext {
     // 현재 로그인한 사용자 정보 가져오기
     public static Member getCurrentUser() {
         if (isLoggedIn()) {
-            return (Member) MemberDAO.getUserInfo(loginContext.memberId, loginContext.password); // Member 객체 반환
+            return MemberDAO.getUserInfo(loginContext.memberId, loginContext.password); // Member 객체 반환
         }
         return null;
     }
