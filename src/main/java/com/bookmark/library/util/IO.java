@@ -22,7 +22,7 @@ public class IO {
         do {
             System.out.print(">>> ");
             menu = readIntLine();
-        } while (menu > max);
+        } while (menu < 0 || menu > max);
         return menu;
     }
 }

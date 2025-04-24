@@ -1,13 +1,31 @@
 package com.bookmark.library.view;
 
+import com.bookmark.library.common.ReturnToHomeException;
 import com.bookmark.library.util.IO;
-// 석진님이 만드신 거. 내가 참고해야할 부분
-public class MainMenuView {
-    /**
-     * 메인 메뉴에 진입합니다.
-     * @return 프로그램 종료가 요청되면 false를 반환합니다. 그 외의 경우 true를 반환합니다.
-     */
-    public boolean showMainMenu() {
+
+public class HomeView {
+    private boolean terminate = false;
+
+    public void showHome() {
+        while (!terminate) {
+            try {
+                // TODO: 로그인 여부 확인
+                boolean isLoggedIn = false;
+                if (isLoggedIn) {
+                    showLoggedIn();
+                } else {
+                    showNotLoggedIn();
+                }
+            } catch (ReturnToHomeException ignored) {
+            }
+        }
+    }
+
+    private void showLoggedIn() {
+
+    }
+
+    private void showNotLoggedIn() {
         System.out.print("""
                 
                 ==== BOOKMARK ====
@@ -21,16 +39,12 @@ public class MainMenuView {
                 """);
 
         switch (IO.selectMenu(4)) {
-            case 0 -> {
-                return false;
-            }
+            case 0 -> terminate = true;
             case 1 -> registerMember();
             case 2 -> login();
             case 3 -> searchBook();
             case 4 -> viewCategories();
         }
-
-        return true;
     }
 
     private void registerMember() {
