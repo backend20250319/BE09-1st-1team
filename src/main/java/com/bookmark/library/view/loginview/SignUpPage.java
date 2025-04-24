@@ -74,9 +74,4 @@ public class SignUpPage {
         }
         LoginPage.run();
     }
-
-    public static void main(String[] args) {
-
-        run(); // 직접 실행도 가능하게 설정
-    }
 }

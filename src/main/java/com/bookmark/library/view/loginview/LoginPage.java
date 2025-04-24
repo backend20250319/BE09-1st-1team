@@ -11,10 +11,6 @@ import java.sql.SQLException;
 
 public class LoginPage {
 
-    public static void main(String[] args) {
-        run();
-    }
-
     public static void run() {
         LoginService service = new LoginService();
         System.out.println("==== BOOKMARK ====");

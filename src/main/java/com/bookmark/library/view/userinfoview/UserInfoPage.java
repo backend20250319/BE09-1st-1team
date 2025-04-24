@@ -29,7 +29,4 @@ public class UserInfoPage {
         }
     }
 
-    public static void main(String[] args) {
-        run();
-    }
 }
