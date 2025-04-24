@@ -52,7 +52,8 @@ public class HomeView {
     }
 
     private void login() {
-
+//        LoginPage page = new LoginPage();
+//        page.run();
     }
 
     private void searchBook() {
