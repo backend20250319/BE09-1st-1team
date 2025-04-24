@@ -1,6 +1,6 @@
 package com.bookmark.library.view;
 
-import com.bookmark.library.common.ReturnToHomeException;
+import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.util.IO;
 
 public class HomeView {
