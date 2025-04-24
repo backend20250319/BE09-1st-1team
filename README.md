@@ -25,6 +25,9 @@
 
 ![Image](https://github.com/user-attachments/assets/f7048cba-efd1-4ed3-8e51-03e300faa95e)
 
+# db 설계
+![Image](https://github.com/user-attachments/assets/844a8291-e67c-4f41-9989-d0eebf7bbc4e)
+
 # 📚 Bookmark Library
 
 콘솔 기반 도서 관리 시스템입니다.  
