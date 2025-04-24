@@ -18,27 +18,6 @@ public class ShowBookDetailView {
 
     private static ReviewService reviewService = new ReviewService();
 
-    //book.searchBook();
-    public static void main(String[] args) {
-        // 테스트용 Book 객체 생성
-        Book testBook = new Book(
-                "978-89-6848-556-3",
-                "자바의 정석",
-                1,
-                "남궁성",
-                "도우출판",
-                new Date(),
-                5,
-                10,
-                "자바의 기초부터 객체지향개념을 넘어 실전활용까지",
-                new ArrayList<>(),
-                12
-        );
-
-        // 도서 상세 정보 출력
-        ShowBookDetailView.showBookDetail(testBook);
-    }
-
     public static void showBookDetail(Book book) {
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
@@ -77,6 +56,7 @@ public class ShowBookDetailView {
                 case 0:
                     // 통합 검색 페이지로 이동 코드
                     System.out.println("통합 검색 페이지로 돌아갑니다.");
+                    KeywordSearch.showKerywordSearch();
                     return;
                 case 1:
                     // 대출 기능 구현 예정

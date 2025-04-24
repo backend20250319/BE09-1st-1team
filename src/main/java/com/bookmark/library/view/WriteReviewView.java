@@ -13,33 +13,6 @@ import java.util.Date;
 
 // 리뷰 작성 페이지
 public class WriteReviewView {
-    // 기능 확인용 main문
-    public static void main(String[] args) {
-        // 테스트용 Book 객체 생성
-        Book testBook = new Book(
-                "978-89-6848-556-3",
-                "자바의 정석",
-                1,
-                "남궁성",
-                "도우출판",
-                new Date(),
-                5,
-                10,
-                "자바의 기초부터 객체지향개념을 넘어 실전활용까지",
-                new ArrayList<>(),
-                12
-        );
-
-        // 테스트를 위해 임시로 로그인 상태 설정
-        Member testuser = new Member(); // 멤버 객체 연결
-        testuser.setId("testuser1");
-
-        // 필요한 경우 다른 회원 정보도 설정
-        LoginContext.login(testuser);
-
-        // 리뷰 작성 페이지 테스트
-        WriteReviewView.writeReview(testBook);
-    }
 
     public static void writeReview(Book book) {
 

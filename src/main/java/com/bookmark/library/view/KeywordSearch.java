@@ -7,12 +7,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class KeywordSearch {
-    public static void main(String[] args) {
-        Scanner keyword = new Scanner(System.in);
+
+    // 도서 상세 페이지에서도 호출할 수 있도록 static 메서드 추가
+    public static void showKerywordSearch() {
         System.out.println("====[통합 검색]====");
         System.out.println("검색어를 입력하세요.");
-        String keywordText = keyword.nextLine().toLowerCase();
-        keyword.close();
+        String keywordText = IO.scanner.nextLine().toLowerCase();
 
         String searchPattern = "%" + keywordText + "%";
         String sql = "SELECT title, author, publisher FROM books " +
@@ -22,7 +22,6 @@ public class KeywordSearch {
         Set<String> uniqueResults = new LinkedHashSet<>();
 
         SearchView.searchResults = uniqueResults;
-
     }
 
 }
