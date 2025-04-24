@@ -2,6 +2,9 @@
 ---
 ![Image](https://github.com/user-attachments/assets/e92183c2-f03e-4d98-924d-da0b5b0e1876)
 
+키워드 검색
+![Image](https://github.com/user-attachments/assets/83dccda4-394b-4b1e-ac93-419a77512d2e)
+
 
 # 📚 Bookmark Library
 
