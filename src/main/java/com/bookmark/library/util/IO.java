@@ -25,4 +25,9 @@ public class IO {
         } while (menu < 0 || menu > max);
         return menu;
     }
+
+    public static void pressEnterToProceed() {
+        System.out.println("(확인: ENTER)");
+        scanner.nextLine();
+    }
 }
