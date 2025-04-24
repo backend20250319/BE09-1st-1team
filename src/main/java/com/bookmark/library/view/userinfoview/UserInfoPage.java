@@ -25,7 +25,7 @@ public class UserInfoPage {
 
         switch (choice) {
             case 1 -> InfoEditPage.run(); // 개인정보 수정 화면 이동
-//            case 0 -> MainMenuView.run();  // 메인 메뉴로 이동
+            case 0 -> throw new RuntimeException();  // 메인 메뉴로 이동
             default -> System.out.println("⚠️ 올바른 번호를 입력해주세요.");
         }
     }
