@@ -8,6 +8,7 @@ import com.bookmark.library.model.LoanInfo;
 import com.bookmark.library.model.Member;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class LoanService {
     private static final int MAX_LOAN_COUNT = 3;
@@ -73,5 +74,9 @@ public class LoanService {
 
     public int getLoanCount(String memberId) {
         return loanDAO.getLoanCount(memberId);
+    }
+
+    public List<String> getCurrentLoans(String memberId) {
+        return loanDAO.getCurrentLoans(memberId);
     }
 }

@@ -4,6 +4,7 @@ import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.Main;
+import com.bookmark.library.service.LoanService;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.dao.LoanDAO;
 
@@ -11,12 +12,6 @@ import java.sql.Connection;
 import java.util.List;
 
 public class UserInfoPage {
-    private final LoanDAO loanDAO;
-
-    public UserInfoPage(LoanDAO loanDAO) {
-        this.loanDAO = loanDAO;
-    }
-
     public void run() {
         Member user = LoginContext.getCurrentUser();
 
@@ -28,7 +23,8 @@ public class UserInfoPage {
         System.out.println("전화번호: " + user.getPhoneNumber());
         System.out.println("이메일: " + user.getEmail());
         try {
-            List<String> loans = loanDAO.getCurrentLoans(LoginContext.getCurrentUser().getId()); // 👈 이렇게 가능
+            var loanService = LoanService.get();
+            List<String> loans = loanService.getCurrentLoans(LoginContext.getCurrentUser().getId()); // 👈 이렇게 가능
 
             System.out.println("\n📚 대출 중인 도서 목록:");
             if (loans.isEmpty()) {

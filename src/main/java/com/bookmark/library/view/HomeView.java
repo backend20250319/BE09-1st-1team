@@ -13,8 +13,8 @@ public class HomeView {
     private boolean terminate = false;
     private final UserInfoPage userInfoPage;
 
-    public HomeView(LoanDAO loanDAO) {
-        userInfoPage = new UserInfoPage(loanDAO);
+    public HomeView() {
+        userInfoPage = new UserInfoPage();
     }
 
     public void showHome() {
