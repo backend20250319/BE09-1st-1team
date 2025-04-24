@@ -60,6 +60,8 @@ public class InfoEditPage {
 
         if (result) {
             System.out.println("\n✅ 개인정보가 성공적으로 수정되었습니다!");
+            System.out.println("다시 로그인 해주세요!!");
+            LoginContext.logout();
         } else {
             System.out.println("\n❌ 수정에 실패했습니다. 다시 시도해주세요.");
         }
