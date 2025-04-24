@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class LoginPage {
 
     public static void main(String[] args) {
-        run(); // IntelliJ에서 실행될 때 진입점
+        run();
     }
 
     public static void run() {

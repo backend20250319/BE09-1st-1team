@@ -19,8 +19,8 @@ public class UserInfoPage {
                 1. 개인정보 수정
                 2. 반납
                 0. 뒤로가기
-                >>>  """);
-        int choice = IO.scanner.nextInt();
+                """);
+        int choice = IO.selectMenu(3);
 
         switch (choice) {
             case 1 -> InfoEditPage.run(); // 개인정보 수정 화면 이동

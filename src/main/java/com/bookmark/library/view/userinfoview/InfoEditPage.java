@@ -17,7 +17,6 @@ public class InfoEditPage {
 
         System.out.print("새 비밀번호: ");
         String password = IO.scanner.nextLine();
-        IO.scanner.nextLine();
 
         System.out.print("새 사용자명: ");
         String username = IO.scanner.nextLine();
