@@ -19,6 +19,11 @@ public class LoginContext {
         return isValid;
     }
 
+    // 로그아웃 처리
+    public static void logout() {
+        loginContext = null;
+    }
+
     // 현재 로그인한 사용자 정보 가져오기
     public static Member getCurrentUser() {
         if (isLoggedIn()) {
