@@ -1,13 +1,12 @@
 package com.bookmark.library.view;
 
-import com.bookmark.library.util.IO;
-
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class KeywordSearch {
-    public static void main(String[] args) {
+
+    public static void runKeywordSearch() {
         Scanner keyword = new Scanner(System.in);
         System.out.println("====[통합 검색]====");
         System.out.println("검색어를 입력하세요.");
@@ -19,10 +18,11 @@ public class KeywordSearch {
                 "WHERE title LIKE '" + searchPattern + "' " +
                 "OR author LIKE '" + searchPattern + "' " +
                 "OR publisher LIKE '" + searchPattern + "'";
+
         Set<String> uniqueResults = new LinkedHashSet<>();
+
 
         SearchView.searchResults = uniqueResults;
 
     }
-
 }
