@@ -1,7 +1,6 @@
 package com.bookmark.library.view;
 import com.bookmark.library.util.IO;
 
-
 import java.util.Set;
 public class SearchView {
     public static Set<String> searchResults;
@@ -62,11 +61,11 @@ public class SearchView {
 
         switch (IO.selectMenu(1)) {
             case 0 -> {
-                System.out.println("메인화면으로 이동합니다.");
+                System.out.println("메인화면으로 이동합");
                 // 메인 메뉴로 이동
             }
             case 1 -> {
-                System.out.println("상세페이지로 이동합니다.");
+                System.out.println("상세페이지로 이동");
                 // 상세 페이지 이동
             }
             default -> {

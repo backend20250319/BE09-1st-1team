@@ -7,8 +7,6 @@ import java.util.Set;
 
 public class CategorySearch {
 
-    private final Book book1 = new book1();
-
     public boolean showCategoryView() {
         System.out.println("""
                  ==== [도서 카테고리 선택] ====
@@ -28,8 +26,8 @@ public class CategorySearch {
             return true;
         }
 
-        Set<String> results = book1.getBooksByCategory(category_id);
-        SearchView.setCategoryResults(results);
+       // Set<String> results = Book.getBooksByCategory(category_id);
+       // SearchView.setCategoryResults(results);
         return true;
     }
 }
