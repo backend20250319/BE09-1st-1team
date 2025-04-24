@@ -6,14 +6,15 @@ import com.bookmark.library.model.Member;
 public class LoginContext {
     private static LoginContext loginContext = new LoginContext();
 
-    //private static Member currentUser; //
-    private String memberId, password;
+    private String memberId;
+    private String password;
 
+    // 로그인 처리
     public static boolean login(String memberId, String password) {
         boolean isValid = MemberDAO.validateLogin(memberId, password);
         if (isValid) {
             loginContext.memberId = memberId;
-            loginContext.password = password; // 비밀번호도 저장
+            loginContext.password = password;
         }
         return isValid;
     }
@@ -21,15 +22,13 @@ public class LoginContext {
     // 현재 로그인한 사용자 정보 가져오기
     public static Member getCurrentUser() {
         if (isLoggedIn()) {
-            return (Member) MemberDAO.getUserInfo(loginContext.memberId, loginContext.password); // memberId + password로 조회
+            return (Member) MemberDAO.getUserInfo(loginContext.memberId, loginContext.password); // Member 객체 반환
         }
         return null;
     }
 
-
-
     // 로그인 여부 확인
     public static boolean isLoggedIn() {
-        return loginContext != null;
+        return loginContext != null && loginContext.memberId != null;
     }
 }

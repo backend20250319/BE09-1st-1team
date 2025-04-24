@@ -1,6 +1,7 @@
 package com.bookmark.library.view.userinfoview;
 
-import com.bookmark.library.auth.Session.SessionUser;
+import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.model.Member;
 import com.bookmark.library.service.UserEditService;
 import com.bookmark.library.util.IO;
 
@@ -12,8 +13,20 @@ public class InfoEditPage {
                 ✏️ 개인정보 수정
                 """);
 
-        SessionUser session = SessionUser.getInstance();
-        String memberId = session.getMemberId();
+        // 로그인 확인
+        if (!LoginContext.isLoggedIn()) {
+            System.out.println("❌ 로그인 상태가 아닙니다. 먼저 로그인해주세요.");
+            return;
+        }
+
+        // 현재 로그인한 사용자 정보 가져오기
+        Member user = LoginContext.getCurrentUser();
+        if (user == null) {
+            System.out.println("❌ 사용자 정보를 불러오는 데 실패했습니다.");
+            return;
+        }
+
+        String memberId = user.getId();
 
         String password;
         while (true) {
@@ -23,11 +36,11 @@ public class InfoEditPage {
             System.out.println("⚠️ 비밀번호는 필수 입력 항목입니다. 다시 입력해주세요.");
         }
 
-        String username;
+        String newUsername;
         while (true) {
             System.out.print("새 사용자명 \u001B[31m*\u001B[0m : ");
-            username = IO.scanner.nextLine().trim();
-            if (!username.isBlank()) break;
+            newUsername = IO.scanner.nextLine().trim();
+            if (!newUsername.isBlank()) break;
             System.out.println("⚠️ 사용자명은 필수 입력 항목입니다. 다시 입력해주세요.");
         }
 
@@ -40,7 +53,7 @@ public class InfoEditPage {
         boolean result = UserEditService.updateUser(
                 memberId,
                 password,
-                username,
+                newUsername,
                 phoneNumber,
                 email
         );
