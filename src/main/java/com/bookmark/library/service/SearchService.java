@@ -6,6 +6,6 @@ import java.util.List;
 
 public class SearchService {
     public List<Book> search(String query) {
-        // TODO
+        return List.of(); // TODO: 나중에 구현
     }
 }

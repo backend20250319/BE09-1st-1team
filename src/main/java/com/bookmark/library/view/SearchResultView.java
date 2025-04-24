@@ -29,14 +29,15 @@ public class SearchResultView {
         if (choice == 0) return;
 
         Book book = searchResults.get(choice - 1);
-        ShowBookDetailView.showBookDetail(book);
+        var detailView = new ShowBookDetailView();
+        detailView.showBookDetail(book);
     }
 
 
     public static List<Book> categoryResults;
 
-    public static void setCategoryResults(Set<Book> results) {
-        categoryResults = new ArrayList<>(results);
+    public static void setCategoryResults(List<Book> results) {
+        categoryResults = results;
         showCategoryResults();
     }
 
@@ -64,7 +65,8 @@ public class SearchResultView {
         if (choice == 0) return;
 
         Book book = categoryResults.get(choice - 1);
-        ShowBookDetailView.showBookDetail(book);
+        var detailView = new ShowBookDetailView();
+        detailView.showBookDetail(book);
 
         System.out.println("===========================");
     }

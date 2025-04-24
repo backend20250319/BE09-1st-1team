@@ -1,8 +1,10 @@
 package com.bookmark.library.view;
 
 import com.bookmark.library.dao.BookDAO;
+import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
+import java.util.List;
 import java.util.Set;
 
 public class CategorySearchView {
@@ -26,7 +28,7 @@ public class CategorySearchView {
             return true;
         }
 
-        Set<String> results = BookDAO.getBooksByCategory(category_id);
+        List<Book> results = BookDAO.getBooksByCategory(category_id);
         SearchResultView.setCategoryResults(results);
         return true;
     }

@@ -19,10 +19,6 @@ import java.util.List;
 public class ShowBookDetailView {
 
     private ReviewService reviewService = new ReviewService();
-    private LoanView loanView;
-    public ShowBookDetailView(LoanView loanView) {
-        this.loanView = loanView;
-    }
 
     /***
      *  BOOK-005: 도서 상세 정보 표시
@@ -71,6 +67,7 @@ public class ShowBookDetailView {
                     return;
                 case 1:
                     // 대출하기
+                    var loanView = new LoanView();
                     loanView.showLoanPage(book);
                     showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
                     break;

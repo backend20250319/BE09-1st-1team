@@ -14,12 +14,6 @@ import com.bookmark.library.util.IO;
  * 도서 대출 페이지 뷰
  */
 public class LoanView {
-    private final LoanService loanService;
-
-    public LoanView(LoanService loanService) {
-        this.loanService = loanService;
-    }
-
     public void showLoanPage(Book book) {
         Member member = LoginContext.getCurrentUser();
         if (member == null) {
@@ -27,6 +21,7 @@ public class LoanView {
             return;
         }
 
+        var loanService = LoanService.get();
         var reason = loanService.canLoan(member, book);
         if (reason != null) {
             showNotAvailable(reason);

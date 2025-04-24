@@ -15,8 +15,8 @@ public class BookDAO {
         this.conn = conn;
     }
 
-    public static Set<String> getBooksByCategory(int categoryId) {
-        return Set.of();
+    public static List<Book> getBooksByCategory(int categoryId) {
+        return List.of(); // TODO: 나중에 구현
     }
 
     public void insertBook(Book book)throws SQLException {

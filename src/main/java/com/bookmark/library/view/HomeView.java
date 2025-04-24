@@ -3,6 +3,7 @@ package com.bookmark.library.view;
 import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.dao.LoanDAO;
 import com.bookmark.library.exception.ReturnToHomeException;
+import com.bookmark.library.service.SearchService;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.view.loginview.LoginPage;
 import com.bookmark.library.view.loginview.SignUpPage;
@@ -79,10 +80,12 @@ public class HomeView {
     }
 
     private void searchBook() {
-
+        var view = new KeywordSearchView(new SearchService());
+        view.runKeywordSearch();
     }
 
     private void viewCategories() {
-
+        var view = new CategorySearchView();
+        view.showCategoryView();
     }
 }

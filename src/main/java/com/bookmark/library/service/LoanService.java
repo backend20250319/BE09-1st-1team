@@ -12,11 +12,20 @@ import java.time.LocalDate;
 public class LoanService {
     private static final int MAX_LOAN_COUNT = 3;
     private static final int LOAN_DURATION_DAYS = 7;
+    private static LoanService instance;
 
     private final LoanDAO loanDAO;
 
     public LoanService(LoanDAO loanDAO) {
         this.loanDAO = loanDAO;
+    }
+
+    public static void setInstance(LoanService instance) {
+        LoanService.instance = instance;
+    }
+
+    public static LoanService get() {
+        return instance;
     }
 
     public LoanInfo getLoanInfo(Member member) {
