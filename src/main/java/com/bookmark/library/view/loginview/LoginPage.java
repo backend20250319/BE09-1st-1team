@@ -4,6 +4,7 @@ import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.service.LoginService;
 import com.bookmark.library.util.IO;
+import com.bookmark.library.view.HomeView;
 import com.bookmark.library.view.userinfoview.UserInfoPage;
 
 public class LoginPage {
@@ -27,10 +28,8 @@ public class LoginPage {
                 return;
             }
 
-            // 현재 로그인된 사용자 정보 출력 (선택)
+            // 현재 로그인된 사용자 정보 출력
             System.out.println("환영합니다, " + user.getUsername() + "님!");
-
-            UserInfoPage.run();
         } else {
             LoginFalse.display(); // 로그인 실패 시 로그인 실패 페이지로 이동
         }

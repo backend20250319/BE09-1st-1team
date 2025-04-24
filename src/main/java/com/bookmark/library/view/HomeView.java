@@ -38,7 +38,7 @@ public class HomeView {
 
         switch (IO.selectMenu(4)) {
             case 0 -> terminate = true;
-            case 1 -> UserInfoPage.run();
+            case 1 -> {} // UserInfoPage.run();
             case 2 -> logout();
             case 3 -> searchBook();
             case 4 -> viewCategories();
