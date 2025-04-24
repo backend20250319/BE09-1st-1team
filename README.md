@@ -83,5 +83,12 @@
 ![Image](https://github.com/user-attachments/assets/0ed6be9a-a11b-4132-bf00-2191fa27e529)
 
 ## 🗃️ 프로젝트 구조
+![image](https://github.com/user-attachments/assets/a10104c4-45a6-4e0f-9a5d-3555429e0ed5)
+
+![image](https://github.com/user-attachments/assets/b4a7e3df-cc03-41d3-93d9-d0e95946aca4)
+
+
+![image](https://github.com/user-attachments/assets/4ff87762-ba6e-4867-a886-114928b9abd5)
+
 
 
