@@ -20,7 +20,7 @@ public class UserInfoPage {
                 2. 반납
                 0. 뒤로가기
                 """);
-        int choice = IO.selectMenu(3);
+        int choice = IO.selectMenu(2);
 
         switch (choice) {
             case 1 -> InfoEditPage.run(); // 개인정보 수정 화면 이동
