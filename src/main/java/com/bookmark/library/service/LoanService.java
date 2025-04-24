@@ -1,0 +1,56 @@
+package com.bookmark.library.service;
+
+import com.bookmark.library.dao.LoanDAO;
+import com.bookmark.library.exception.LoanFailureException;
+import com.bookmark.library.model.Book;
+import com.bookmark.library.common.LoanFailureReason;
+import com.bookmark.library.model.Member;
+
+public class LoanService {
+    public static final int MAX_LOAN_COUNT = 3;
+
+    private final LoanDAO loanDAO;
+
+    public LoanService(LoanDAO loanDAO) {
+        this.loanDAO = loanDAO;
+    }
+
+    /**
+     * 책을 빌립니다.
+     * @param member 책을 빌릴 회원
+     * @param book 빌릴 책
+     */
+    public void loanBook(Member member, Book book) throws LoanFailureException {
+        var reason = canLoan(member, book);
+        if (reason != null) {
+            throw new LoanFailureException(reason);
+        }
+        throw new RuntimeException("Not yet implemented");
+    }
+
+    /**
+     * 회원이 해당 도서를 대출할 수 있는지 확인합니다.
+     * 대출이 불가능한 경우 그 사유를 반환하며, 가능할 경우 {@code null}을 반환합니다.
+     * @param member 대출을 시도하는 회원
+     * @param book   대출하려는 도서
+     * @return 대출 불가 사유가 담긴 {@link LoanFailureReason}, 또는 대출 가능 시 {@code null}
+     */
+    public LoanFailureReason canLoan(Member member, Book book) {
+        if (member == null) return LoanFailureReason.MEMBER_NOT_FOUND;
+        if (book == null) return LoanFailureReason.BOOK_NOT_FOUND;
+        if (!book.isAvailable()) return LoanFailureReason.BOOK_NOT_AVAILABLE;
+        if (loanDAO.hasOverdueLoans(member.getId())) return LoanFailureReason.MEMBER_HAS_OVERDUE;
+        if (loanDAO.getLoanCount(member.getId()) >= MAX_LOAN_COUNT) return LoanFailureReason.MEMBER_REACHED_LIMIT;
+
+        // 나이 제한 확인
+        if (book.getAgeLimit() > 0 && member.getAge() < book.getAgeLimit()) {
+            return LoanFailureReason.MEMBER_AGE_RESTRICTED;
+        }
+
+        return null; // 대출 가능
+    }
+
+    public int getLoanCount(String memberId) {
+        return loanDAO.getLoanCount(memberId);
+    }
+}

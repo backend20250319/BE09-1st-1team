@@ -130,21 +130,6 @@ public class Book {
         return stockQuantity > 0;
     }
 
-    // 도서 대출
-    public boolean borrowBook() {
-        if (isAvailable()) {
-            stockQuantity--;
-            return true;
-        }
-        return false;
-    }
-
-    // 리뷰 추가
-    public void addReview(Review review) {
-        reviews.add(review);
-    }
-
-
     @Override
     public String toString() {
         return "Book{" +
