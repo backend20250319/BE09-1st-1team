@@ -37,4 +37,6 @@ public class IO {
         System.out.print("(확인: ENTER)");
         scanner.nextLine();
     }
+
+
 }

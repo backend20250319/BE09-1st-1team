@@ -35,7 +35,7 @@ public class WriteReviewView {
         testuser.setId("testuser1");
 
         // 필요한 경우 다른 회원 정보도 설정
-        LoginContext.login(testuser);
+        // LoginContext.login(testuser);
 
         // 리뷰 작성 페이지 테스트
         WriteReviewView.writeReview(testBook);
