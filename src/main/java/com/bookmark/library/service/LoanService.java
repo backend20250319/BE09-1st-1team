@@ -38,7 +38,7 @@ public class LoanService {
             throw new LoanFailureException(reason);
         }
 
-        loanDAO.createLoan(member.getId(), book.getIsbn(), loanDate, dueDate);
+        loanDAO.createLoan(member.getId(), book.isbn(), loanDate, dueDate);
     }
 
     /**
@@ -56,7 +56,7 @@ public class LoanService {
         if (loanDAO.getLoanCount(member.getId()) >= MAX_LOAN_COUNT) return LoanFailureReason.MEMBER_REACHED_LIMIT;
 
         // 나이 제한 확인
-        if (book.getAgeLimit() > 0 && member.getAge() < book.getAgeLimit()) {
+        if (book.ageLimit() > 0 && member.getAge() < book.ageLimit()) {
             return LoanFailureReason.MEMBER_AGE_RESTRICTED;
         }
 

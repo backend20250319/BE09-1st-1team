@@ -34,7 +34,7 @@ public class IO {
     }
 
     public static void pressEnterToProceed() {
-        System.out.print("(확인: ENTER)");
+        System.out.print("\n(확인: ENTER)");
         scanner.nextLine();
     }
 

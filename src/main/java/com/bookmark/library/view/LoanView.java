@@ -34,7 +34,7 @@ public class LoanView {
         System.out.println("반납 예정일: " + info.dueDate());
         System.out.println("현재 " + info.remainingLoanCount() + "권까지 더 대출하실 수 있습니다.");
 
-        if (IO.confirm("[" + book.getTitle() + "] 대출하시겠습니까?")) {
+        if (IO.confirm("[" + book.title() + "] 대출하시겠습니까?")) {
             try {
                 loanService.loanBook(member, book, info.loanDate(), info.dueDate());
                 System.out.println("대출이 완료되었습니다.");

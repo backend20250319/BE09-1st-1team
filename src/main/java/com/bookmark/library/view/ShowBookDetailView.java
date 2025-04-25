@@ -18,25 +18,25 @@ public class ShowBookDetailView {
      * @param book
      */
     public void showBookDetail(Book book) {
-        List<Review> reviews = reviewService.getReviewsByiSbn(book.getIsbn());
-        book.setReviews(reviews);
+        List<Review> reviews = reviewService.getReviewsByiSbn(book.isbn());
 
         System.out.println("=== [도서 상세 정보] ===");
         System.out.println();
-        System.out.println("📘 도서명: " + book.getTitle());
-        System.out.println(" ✍ 저자: " + book.getAuthor());
-        System.out.println("🏢 출판사: " + book.getPublisher());
-        System.out.println("📅 출간일: " + book.getPublishDate());
-        System.out.println("📦 재고 현황: " + book.getStockQuantity() + " / " + book.getTotalStock() +
+        System.out.println("📘 도서명: " + book.title());
+        System.out.println(" ✍ 저자: " + book.author());
+        System.out.println("🏢 출판사: " + book.publisher());
+        System.out.println("📅 출간일: " + book.publishDate());
+        // TODO: 실제 대출 현황을 반영해야 함
+        System.out.println("📦 재고 현황: " + book.stockQuantity() + " / " + book.stockQuantity() +
                 "권 (" + (book.isAvailable() ? "대출 가능" : "대출 불가") + ")");
-        System.out.println("📖 책 소개: " + book.getIntroduction());
+        System.out.println("📖 책 소개: " + book.introduction());
 
         // 리뷰 출력
         System.out.println("💬 리뷰");
-        if (book.getReviews().isEmpty()) {
+        if (reviews.isEmpty()) {
             System.out.println("아직 등록된 리뷰가 없습니다.");
         } else {
-            for (Review review : book.getReviews()) {
+            for (Review review : reviews) {
                 System.out.println("사용자 ID: " + review.getMemberId());
                 System.out.println(" \"" + review.getContent() + "\"");
                 System.out.println(" 별점 : " + "★".repeat(Math.max(0,review.getRating())) + "☆".repeat(5 - review.getRating()));
@@ -51,34 +51,24 @@ public class ShowBookDetailView {
 
         // 사용자 입력 처리 - 메뉴 최대값은 2
         int choice = IO.selectMenu(2);
-
-        try {
-
-            switch (choice) {
-                case 0:
-                    System.out.println("통합 검색 페이지로 돌아갑니다.");
-                    return;
-                case 1:
-                    // 대출하기
-                    var loanView = new LoanView();
-                    loanView.showLoanPage(book);
-                    showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
-                    break;
-                case 2:
-                    // 리뷰 작성 페이지로 이동 코드
-                    WriteReviewView.writeReview(book);
-                    showBookDetail(book); // 리뷰 작성 후 상세 보기로 자동 복귀
-                    break;
-                default:
-                    System.out.println("잘못된 입력입니다.");
-                    showBookDetail(book);
-            }
-
-        } catch (Exception e) {
-            // 예외 처리 코드
-            System.out.println("잘못된 입력입니다. 선택 메뉴에 있는 번호를 입력해주세요.");
-            throw new RuntimeException(e);
+        switch (choice) {
+            case 0:
+                System.out.println("통합 검색 페이지로 돌아갑니다.");
+                return;
+            case 1:
+                // 대출하기
+                var loanView = new LoanView();
+                loanView.showLoanPage(book);
+                showBookDetail(book); // 대출 완료 후 상세 보기로 돌아옴.
+                break;
+            case 2:
+                // 리뷰 작성 페이지로 이동 코드
+                new WriteReviewView().writeReview(book);
+                showBookDetail(book); // 리뷰 작성 후 상세 보기로 자동 복귀
+                break;
+            default:
+                System.out.println("잘못된 입력입니다.");
+                showBookDetail(book);
         }
-
     }
 }

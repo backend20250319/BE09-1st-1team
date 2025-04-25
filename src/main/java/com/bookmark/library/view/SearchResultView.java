@@ -12,16 +12,17 @@ public class SearchResultView {
         this.searchResults = results;
     }
 
-    private void showSearchResults() {
-        System.out.println("==== [검색 결과] ====");
+    public void showSearchResults() {
+        System.out.println("\n==== [검색 결과] ====");
         if (searchResults == null || searchResults.isEmpty()) {
             System.out.println("검색 결과가 없습니다.");
+            IO.pressEnterToProceed();
             return;
         }
 
         for (int i = 0; i < searchResults.size(); i++) {
             Book book = searchResults.get(i);
-            System.out.println("[" + (i+1) + "] " + book.getTitle());
+            System.out.println("[" + (i+1) + "] " + book.title());
         }
         System.out.println("0. 뒤로");
 
@@ -52,7 +53,7 @@ public class SearchResultView {
 
         int index = 1;
         for (Book book : categoryResults) {
-            System.out.println("[" + index++ + "] " + book.getTitle() + " - " + book.getAuthor());
+            System.out.println("[" + index++ + "] " + book.title() + " - " + book.author());
         }
 
         System.out.println("""

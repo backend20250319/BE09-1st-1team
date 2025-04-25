@@ -15,12 +15,13 @@ import java.util.Date;
 import static com.bookmark.library.util.IO.pressEnterToProceed;
 
 public class WriteReviewView {
+    private final ReviewService reviewService = Services.resolve(ReviewService.class);
 
     /***
      * BOOK-008: 리뷰 작성 페이지
      * @param book 리뷰를 작성할 도서 객체
      */
-    public static void writeReview(Book book) {
+    public void writeReview(Book book) {
 
         if (LoginContext.isLoggedIn()) {
             Member user = LoginContext.getCurrentUser();
@@ -49,12 +50,11 @@ public class WriteReviewView {
 
             Review review = new Review();
             review.setMemberId(user.getId()); // 로그인한 사용자 ID 설정
-            review.setIsbn(book.getIsbn());
+            review.setIsbn(book.isbn());
             review.setContent(content);
             review.setRating(rating);
             review.setReviewDate(new Date());
 
-            ReviewService reviewService = Services.resolve(ReviewService.class);
             boolean success = reviewService.writeReview(review);
             if (success) {
                 System.out.println("✅ 리뷰가 등록되었습니다! 감사합니다.");

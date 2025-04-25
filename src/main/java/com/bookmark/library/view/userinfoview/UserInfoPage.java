@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.util.List;
 
 public class UserInfoPage {
+    private final LoanService loanService = Services.resolve(LoanService.class);
+
     public void run() {
         Member user = LoginContext.getCurrentUser();
 
@@ -24,7 +26,6 @@ public class UserInfoPage {
         System.out.println("전화번호: " + user.getPhoneNumber());
         System.out.println("이메일: " + user.getEmail());
         try {
-            var loanService = Services.resolve(LoanService.class);
             List<String> loans = loanService.getCurrentLoans(LoginContext.getCurrentUser().getId()); // 👈 이렇게 가능
 
             System.out.println("\n📚 대출 중인 도서 목록:");
@@ -49,7 +50,7 @@ public class UserInfoPage {
         int choice = IO.selectMenu(2);
 
         switch (choice) {
-            case 1 -> InfoEditPage.run(); // 개인정보 수정 화면 이동
+            case 1 -> new InfoEditPage().run(); // 개인정보 수정 화면 이동
             case 2 -> System.out.println("아직 구현되지 않은 기능입니다.");  // 반납 메뉴 이동
             case 0 -> { return; } // 뒤로가기
         }

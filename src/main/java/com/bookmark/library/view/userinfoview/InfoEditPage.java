@@ -7,7 +7,9 @@ import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
 public class InfoEditPage {
-    public static void run() {
+    private final MemberService memberService = Services.resolve(MemberService.class);
+
+    public void run() {
         System.out.println("""
                 
                 ==== BOOKMARK ====
@@ -51,7 +53,6 @@ public class InfoEditPage {
         System.out.print("새 이메일: ");
         String email = IO.scanner.nextLine();
 
-        var memberService = Services.resolve(MemberService.class);
         boolean result = memberService.updateUser(
                 memberId,
                 password,

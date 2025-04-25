@@ -75,7 +75,7 @@ public class HomeView {
     }
 
     private void searchBook() {
-        var view = new KeywordSearchView(new SearchService());
+        var view = new KeywordSearchView();
         view.runKeywordSearch();
     }
 
