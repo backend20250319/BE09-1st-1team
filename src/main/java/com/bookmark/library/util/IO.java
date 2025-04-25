@@ -1,6 +1,5 @@
 package com.bookmark.library.util;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class IO {

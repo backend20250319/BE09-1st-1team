@@ -26,10 +26,17 @@ public class ShowBookDetailView {
         System.out.println(" ✍ 저자: " + book.author());
         System.out.println("🏢 출판사: " + book.publisher());
         System.out.println("📅 출간일: " + book.publishDate());
-        // TODO: 실제 대출 현황을 반영해야 함
-        System.out.println("📦 재고 현황: " + book.stockQuantity() + " / " + book.stockQuantity() +
-                "권 (" + (book.isAvailable() ? "대출 가능" : "대출 불가") + ")");
-        System.out.println("📖 책 소개: " + book.introduction());
+
+        System.out.print("📦 재고 현황: ");
+        int loanCount = loanService.getLoanCountByBook(book.isbn());
+        int remaining = Math.max(0, book.totalStock() - loanCount);
+        if (remaining > 0) {
+            System.out.println(remaining + "/" + book.totalStock() + " (대출 가능)");
+        } else {
+            System.out.println(IO.RED + remaining + "/" + book.totalStock() + " (대출 불가)" + IO.RESET);
+        }
+
+        System.out.println("📖 책 소개:\n" + book.introduction());
 
         // 리뷰 출력
         System.out.println("💬 리뷰");

@@ -8,13 +8,9 @@ public record Book(
         int categoryId,         // 카테고리 코드
         String author,          // 저자
         String publisher,       // 출판사
-        LocalDate publishDate,       // 출판일
-        int stockQuantity,      // 재고수량
+        LocalDate publishDate,  // 출판일
+        int totalStock,         // 재고수량
         String introduction,    // 한줄소개
-        int ageLimit           // 연령제한
+        int ageLimit            // 연령제한
 ) {
-    // 도서 대출 가능 여부 확인 - 재고수량 확인
-    public boolean isAvailable() {
-        return stockQuantity > 0;
-    }
 }

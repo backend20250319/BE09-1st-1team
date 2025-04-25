@@ -74,7 +74,7 @@ class LoanServiceTest {
         Book book = mock(Book.class);
         when(book.isAvailable()).thenReturn(true);
         when(member.getId()).thenReturn("member-id");
-        when(loanDAO.getLoanCount("member-id")).thenReturn(LoanService.MAX_LOAN_COUNT);
+        when(loanDAO.getLoanCountByMember("member-id")).thenReturn(LoanService.MAX_LOAN_COUNT);
 
         LoanFailureReason result = loanService.canLoan(member, book);
 
@@ -101,7 +101,7 @@ class LoanServiceTest {
         when(member.getId()).thenReturn("member-id");
         when(member.getAge()).thenReturn(25);
         when(loanDAO.hasOverdueLoans("member-id")).thenReturn(false);
-        when(loanDAO.getLoanCount("member-id")).thenReturn(0);
+        when(loanDAO.getLoanCountByMember("member-id")).thenReturn(0);
         when(book.isAvailable()).thenReturn(true);
         when(book.getAgeLimit()).thenReturn(18);
 

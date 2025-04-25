@@ -25,7 +25,7 @@ public class LoanDAO {
         }
     }
 
-    public int getLoanCount(String memberId) {
+    public int getLoanCountByMember(String memberId) {
         String sql = "SELECT COUNT(*) FROM loans WHERE member_id = ? AND return_date IS NULL";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, memberId);
@@ -36,6 +36,20 @@ public class LoanDAO {
             return 0;
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get loan count", e);
+        }
+    }
+    
+    public int getLoanCountByBook(String isbn) {
+        String sql = "SELECT COUNT(*) FROM loans WHERE isbn = ? AND return_date IS NULL";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isbn);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get loan count for book", e);
         }
     }
 

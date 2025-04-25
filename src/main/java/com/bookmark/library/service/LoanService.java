@@ -21,7 +21,7 @@ public class LoanService {
     }
 
     public LoanInfo getLoanInfo(Member member) {
-        int current = getLoanCount(member.getId());
+        int current = getLoanCountByMember(member.getId());
         LocalDate loanDate = LocalDate.now();
         LocalDate dueDate = loanDate.plusDays(LOAN_DURATION_DAYS);
         return new LoanInfo(loanDate, dueDate, current, MAX_LOAN_COUNT - current);
@@ -51,11 +51,19 @@ public class LoanService {
     public LoanFailureReason canLoan(Member member, Book book) {
         if (member == null) return LoanFailureReason.MEMBER_NOT_FOUND;
         if (book == null) return LoanFailureReason.BOOK_NOT_FOUND;
-        if (!book.isAvailable()) return LoanFailureReason.BOOK_NOT_AVAILABLE;
-        if (loanDAO.hasOverdueLoans(member.getId())) return LoanFailureReason.MEMBER_HAS_OVERDUE;
-        if (loanDAO.getLoanCount(member.getId()) >= MAX_LOAN_COUNT) return LoanFailureReason.MEMBER_REACHED_LIMIT;
 
-        // 나이 제한 확인
+        if (getLoanCountByBook(book.isbn()) >= book.totalStock()) {
+            return LoanFailureReason.BOOK_NOT_AVAILABLE;
+        }
+
+        if (loanDAO.hasOverdueLoans(member.getId())) {
+            return LoanFailureReason.MEMBER_HAS_OVERDUE;
+        }
+
+        if (getLoanCountByMember(member.getId()) >= MAX_LOAN_COUNT) {
+            return LoanFailureReason.MEMBER_REACHED_LIMIT;
+        }
+
         if (book.ageLimit() > 0 && member.getAge() < book.ageLimit()) {
             return LoanFailureReason.MEMBER_AGE_RESTRICTED;
         }
@@ -63,8 +71,12 @@ public class LoanService {
         return null; // 대출 가능
     }
 
-    public int getLoanCount(String memberId) {
-        return loanDAO.getLoanCount(memberId);
+    public int getLoanCountByBook(String isbn) {
+        return loanDAO.getLoanCountByBook(isbn);
+    }
+
+    public int getLoanCountByMember(String memberId) {
+        return loanDAO.getLoanCountByMember(memberId);
     }
 
     public List<String> getCurrentLoans(String memberId) {
