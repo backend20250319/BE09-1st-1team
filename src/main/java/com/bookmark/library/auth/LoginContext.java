@@ -16,13 +16,14 @@ public class LoginContext {
     }
 
     // 로그인 처리
-    public static boolean login(String memberId, String password) {
+    public static Member login(String memberId, String password) {
         var service = Services.resolve(MemberService.class);
-        if (service.getUserInfo(memberId, password) != null) {
+        var member = service.getUserInfo(memberId, password);
+        if (member != null) {
             context = new LoginContext(memberId, password);
-            return true;
+            return member;
         }
-        return false;
+        return null;
     }
 
     // 로그아웃 처리

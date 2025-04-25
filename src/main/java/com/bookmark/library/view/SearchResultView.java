@@ -16,7 +16,6 @@ public class SearchResultView {
         System.out.println("\n==== [검색 결과] ====");
         if (searchResults == null || searchResults.isEmpty()) {
             System.out.println("검색 결과가 없습니다.");
-            IO.pressEnterToProceed();
             return;
         }
 
@@ -24,7 +23,7 @@ public class SearchResultView {
             Book book = searchResults.get(i);
             System.out.println("[" + (i+1) + "] " + book.title());
         }
-        System.out.println("0. 뒤로");
+        System.out.println("0. 돌아가기");
 
         int choice = IO.selectMenu(searchResults.size());
         if (choice == 0) return;

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 public class MemberDAO {
     private final Connection conn;
@@ -44,7 +45,7 @@ public class MemberDAO {
 
     // 회원 가입 저장
     public boolean insertUser(String memberId, String password, String username,
-                                     Date birthDate, String phoneNumber, String email) {
+                              LocalDate birthDate, String phoneNumber, String email) {
         String sql = """
             INSERT INTO members (member_id, password, username, birth_date, phone_number, email)
             VALUES (?, ?, ?, ?, ?, ?)
@@ -55,7 +56,7 @@ public class MemberDAO {
             stmt.setString(1, memberId);
             stmt.setString(2, password);
             stmt.setString(3, username);
-            stmt.setDate(4, birthDate);
+            stmt.setDate(4, Date.valueOf(birthDate));
             stmt.setString(5, phoneNumber);
             stmt.setString(6, email);
 

@@ -1,5 +1,6 @@
 package com.bookmark.library.util;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class IO {
@@ -18,19 +19,23 @@ public class IO {
      * @return 입력된 메뉴 번호
      */
     public static int selectMenu(int max) {
-        int menu;
-        do {
+        while (true) {
             System.out.print(">>> ");
-            menu = readIntLine();
-        } while (menu < 0 || menu > max);
-        return menu;
+            try {
+                int menu = readIntLine();
+                if (0 <= menu && menu <= max) {
+                    return menu;
+                }
+            } catch (RuntimeException e) {
+                scanner.nextLine(); // 입력 버퍼에 남은 잘못된 문자열 제거
+            }
+        }
     }
 
     public static boolean confirm(String message) {
-        System.out.println(message + " (Y/N)");
-        System.out.println(">>> ");
+        System.out.print(message + " (y/n) ");
         String input = scanner.nextLine();
-        return input.equalsIgnoreCase("Y");
+        return input.equalsIgnoreCase("y");
     }
 
     public static void pressEnterToProceed() {

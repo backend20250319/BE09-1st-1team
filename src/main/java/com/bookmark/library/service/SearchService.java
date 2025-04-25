@@ -12,7 +12,7 @@ public class SearchService {
         this.bookDAO = bookDAO;
     }
 
-    public List<Book> search(String query) {
-        return bookDAO.searchBooks(query);
+    public List<Book> search(String keyword) {
+        return bookDAO.searchBooks(keyword);
     }
 }

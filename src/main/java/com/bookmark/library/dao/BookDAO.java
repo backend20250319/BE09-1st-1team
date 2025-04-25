@@ -40,7 +40,7 @@ public class BookDAO {
         String sql = "SELECT * FROM books WHERE LOWER(title) LIKE ? OR LOWER(author) LIKE ?";
         List<Book> books = new ArrayList<>();
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            String searchPattern = "%" + keyword.toLowerCase() + "%";
+            String searchPattern = "%" + keyword.trim().toLowerCase() + "%";
             pstmt.setString(1, searchPattern);
             pstmt.setString(2, searchPattern);
 

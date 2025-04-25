@@ -1,34 +1,28 @@
 package com.bookmark.library.view.loginview;
 
 import com.bookmark.library.auth.LoginContext;
+import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.service.MemberService;
 import com.bookmark.library.util.IO;
 
 public class LoginPage {
-
     public static void run() {
-        System.out.println("==== BOOKMARK ====");
+        while (true) {
+            System.out.print("아이디> ");
+            String username = IO.scanner.nextLine();
 
-        System.out.print("아이디를 입력하세요: ");
-        String username = IO.scanner.nextLine();
+            System.out.print("비밀번호> ");
+            String password = IO.scanner.nextLine();
 
-        System.out.print("비밀번호를 입력하세요: ");
-        String password = IO.scanner.nextLine();
-
-        if (LoginContext.login(username, password)) {
-            System.out.println("✅ 로그인 성공!");
-
-            Member user = LoginContext.getCurrentUser();
-            if (user == null) {
-                System.out.println("❌ 사용자 정보를 불러오는 데 실패했습니다.");
-                return;
+            var user = LoginContext.login(username, password);
+            if (user != null) {
+                System.out.println("✅ 로그인 성공!");
+                System.out.println("환영합니다, " + user.getUsername() + "님!");
+                break;
+            } else if (!IO.confirm("❌ 로그인 실패. 다시 시도하시겠습니까?")){
+                break;
             }
-
-            // 현재 로그인된 사용자 정보 출력
-            System.out.println("환영합니다, " + user.getUsername() + "님!");
-        } else {
-            LoginFalse.display(); // 로그인 실패 시 로그인 실패 페이지로 이동
         }
     }
 }
