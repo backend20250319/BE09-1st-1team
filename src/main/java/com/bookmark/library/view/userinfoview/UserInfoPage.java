@@ -20,13 +20,13 @@ public class UserInfoPage {
 
         System.out.println();
         System.out.println("==== 마이페이지 ====");
-        System.out.println("아이디: " + user.getId());
-        System.out.println("이름: " + user.getUsername());
-        System.out.println("생년월일: " + user.getBirthDate());
-        System.out.println("전화번호: " + user.getPhoneNumber());
-        System.out.println("이메일: " + user.getEmail());
+        System.out.println("아이디: " + user.id());
+        System.out.println("이름: " + user.username());
+        System.out.println("생년월일: " + user.birthDate());
+        System.out.println("전화번호: " + user.phoneNumber());
+        System.out.println("이메일: " + user.email());
         try {
-            List<String> loans = loanService.getCurrentLoans(LoginContext.getCurrentUser().getId()); // 👈 이렇게 가능
+            List<String> loans = loanService.getCurrentLoans(LoginContext.getCurrentUser().id()); // 👈 이렇게 가능
 
             System.out.println("\n📚 대출 중인 도서 목록:");
             if (loans.isEmpty()) {

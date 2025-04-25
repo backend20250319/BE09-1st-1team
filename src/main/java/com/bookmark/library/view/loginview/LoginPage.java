@@ -18,7 +18,7 @@ public class LoginPage {
             var user = LoginContext.login(username, password);
             if (user != null) {
                 System.out.println("✅ 로그인 성공!");
-                System.out.println("환영합니다, " + user.getUsername() + "님!");
+                System.out.println("환영합니다, " + user.username() + "님!");
                 break;
             } else if (!IO.confirm("❌ 로그인 실패. 다시 시도하시겠습니까?")){
                 break;

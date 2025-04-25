@@ -24,7 +24,7 @@ public class WriteReviewView {
     public void writeReview(Book book) {
         Member user = LoginContext.getCurrentUser();
         if (user != null) {
-            System.out.println("로그인한 사용자 ID : " + user.getId());
+            System.out.println("로그인한 사용자 ID : " + user.id());
 
             System.out.println("=== [📝 리뷰 작성] ===\n");
             System.out.println("내용을 입력하세요:");
@@ -48,7 +48,7 @@ public class WriteReviewView {
             }
 
             Review review = new Review();
-            review.setMemberId(user.getId()); // 로그인한 사용자 ID 설정
+            review.setMemberId(user.id()); // 로그인한 사용자 ID 설정
             review.setIsbn(book.isbn());
             review.setContent(content);
             review.setRating(rating);

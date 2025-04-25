@@ -23,7 +23,7 @@ public class InfoEditPage {
             return;
         }
 
-        String memberId = user.getId();
+        String memberId = user.id();
 
         String password;
         while (true) {

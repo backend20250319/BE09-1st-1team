@@ -21,7 +21,7 @@ public class LoanService {
     }
 
     public LoanInfo getLoanInfo(Member member) {
-        int current = getLoanCountByMember(member.getId());
+        int current = getLoanCountByMember(member.id());
         LocalDate loanDate = LocalDate.now();
         LocalDate dueDate = loanDate.plusDays(LOAN_DURATION_DAYS);
         return new LoanInfo(loanDate, dueDate, current, MAX_LOAN_COUNT - current);
@@ -38,7 +38,7 @@ public class LoanService {
             throw new LoanFailureException(reason);
         }
 
-        loanDAO.createLoan(member.getId(), book.isbn(), loanDate, dueDate);
+        loanDAO.createLoan(member.id(), book.isbn(), loanDate, dueDate);
     }
 
     /**
@@ -56,11 +56,11 @@ public class LoanService {
             return LoanFailureReason.BOOK_NOT_AVAILABLE;
         }
 
-        if (loanDAO.hasOverdueLoans(member.getId())) {
+        if (loanDAO.hasOverdueLoans(member.id())) {
             return LoanFailureReason.MEMBER_HAS_OVERDUE;
         }
 
-        if (getLoanCountByMember(member.getId()) >= MAX_LOAN_COUNT) {
+        if (getLoanCountByMember(member.id()) >= MAX_LOAN_COUNT) {
             return LoanFailureReason.MEMBER_REACHED_LIMIT;
         }
 

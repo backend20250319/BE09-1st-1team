@@ -27,9 +27,8 @@ public class MemberDAO {
                 if (rs.next()) {
                     return new Member(
                             rs.getString("member_id"),
-                            rs.getString("password"),
                             rs.getString("username"),
-                            rs.getDate("birth_date"),
+                            rs.getDate("birth_date").toLocalDate(),
                             rs.getString("phone_number"),
                             rs.getString("email")
                     );

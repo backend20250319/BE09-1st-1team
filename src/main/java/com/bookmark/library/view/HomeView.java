@@ -30,7 +30,7 @@ public class HomeView {
 
     private void showLoggedIn(Member user) {
         System.out.println("==== BOOKMARK ====");
-        System.out.println("로그인된 계정: " + user.getId() + "\n");
+        System.out.println("로그인된 계정: " + user.id() + "\n");
         System.out.println("""
                 1. 마이페이지
                 2. 로그아웃
