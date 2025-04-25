@@ -11,11 +11,6 @@ import com.bookmark.library.view.userinfoview.UserInfoPage;
 
 public class HomeView {
     private boolean terminate = false;
-    private final UserInfoPage userInfoPage;
-
-    public HomeView() {
-        userInfoPage = new UserInfoPage();
-    }
 
     public void showHome() {
         while (!terminate) {
@@ -45,7 +40,7 @@ public class HomeView {
 
         switch (IO.selectMenu(4)) {
             case 0 -> terminate = true;
-            case 1 -> userInfoPage.run();
+            case 1 -> new UserInfoPage().run();
             case 2 -> logout();
             case 3 -> searchBook();
             case 4 -> viewCategories();
@@ -67,7 +62,7 @@ public class HomeView {
 
         switch (IO.selectMenu(4)) {
             case 0 -> terminate = true;
-            case 1 -> SignUpPage.run();
+            case 1 -> new SignUpPage().run();
             case 2 -> LoginPage.run();
             case 3 -> searchBook();
             case 4 -> viewCategories();

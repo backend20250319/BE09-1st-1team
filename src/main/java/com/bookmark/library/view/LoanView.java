@@ -8,12 +8,15 @@ import com.bookmark.library.common.LoanFailureReason;
 import com.bookmark.library.model.LoanInfo;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.service.LoanService;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
 /**
  * 도서 대출 페이지 뷰
  */
 public class LoanView {
+    private final LoanService loanService = Services.resolve(LoanService.class);
+
     public void showLoanPage(Book book) {
         Member member = LoginContext.getCurrentUser();
         if (member == null) {
@@ -21,7 +24,6 @@ public class LoanView {
             return;
         }
 
-        var loanService = LoanService.get();
         var reason = loanService.canLoan(member, book);
         if (reason != null) {
             showNotAvailable(reason);

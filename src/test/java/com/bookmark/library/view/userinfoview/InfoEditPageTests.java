@@ -2,7 +2,6 @@ package com.bookmark.library.view.userinfoview;
 
 import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.model.Member;
-import com.bookmark.library.service.UserEditService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

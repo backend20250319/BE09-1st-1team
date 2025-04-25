@@ -2,15 +2,12 @@ package com.bookmark.library.view.loginview;
 
 import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.model.Member;
-import com.bookmark.library.service.LoginService;
+import com.bookmark.library.service.MemberService;
 import com.bookmark.library.util.IO;
-import com.bookmark.library.view.HomeView;
-import com.bookmark.library.view.userinfoview.UserInfoPage;
 
 public class LoginPage {
 
     public static void run() {
-        LoginService service = new LoginService();
         System.out.println("==== BOOKMARK ====");
 
         System.out.print("아이디를 입력하세요: ");

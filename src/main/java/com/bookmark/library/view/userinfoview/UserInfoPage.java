@@ -5,6 +5,7 @@ import com.bookmark.library.exception.ReturnToHomeException;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.Main;
 import com.bookmark.library.service.LoanService;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 import com.bookmark.library.dao.LoanDAO;
 
@@ -23,7 +24,7 @@ public class UserInfoPage {
         System.out.println("전화번호: " + user.getPhoneNumber());
         System.out.println("이메일: " + user.getEmail());
         try {
-            var loanService = LoanService.get();
+            var loanService = Services.resolve(LoanService.class);
             List<String> loans = loanService.getCurrentLoans(LoginContext.getCurrentUser().getId()); // 👈 이렇게 가능
 
             System.out.println("\n📚 대출 중인 도서 목록:");

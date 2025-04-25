@@ -1,6 +1,7 @@
 package com.bookmark.library.view.loginview;
 
-import com.bookmark.library.service.SignUpService;
+import com.bookmark.library.service.MemberService;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
 import java.time.LocalDate;
@@ -8,8 +9,9 @@ import java.time.format.DateTimeParseException;
 import java.sql.Date;
 
 public class SignUpPage {
+    private final MemberService signUpService = Services.resolve(MemberService.class);
 
-    public static void run() {
+    public void run() {
         System.out.print("""
                 ==== BOOKMARK SIGNUP ====
                 
@@ -19,7 +21,7 @@ public class SignUpPage {
         // ID 입력
         System.out.print("ID \u001B[31m*\u001B[0m : ");
         String member_id = IO.scanner.nextLine();
-        if (member_id.isBlank() || SignUpService.isDuplicateId(member_id)) {
+        if (member_id.isBlank() || signUpService.isDuplicateId(member_id)) {
             SignUpFailPage.display();
             return;
         }
@@ -64,7 +66,7 @@ public class SignUpPage {
         System.out.print("이메일 : ");
         String email = IO.scanner.nextLine();
 
-        boolean result = SignUpService.saveUser(
+        boolean result = signUpService.saveUser(
                 member_id, password, username, birth_date, phone_number, email
         );
 

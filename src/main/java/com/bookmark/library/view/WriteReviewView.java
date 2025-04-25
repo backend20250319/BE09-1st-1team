@@ -6,6 +6,7 @@ import com.bookmark.library.model.Book;
 import com.bookmark.library.model.Member;
 import com.bookmark.library.model.Review;
 import com.bookmark.library.service.ReviewService;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class WriteReviewView {
             review.setRating(rating);
             review.setReviewDate(new Date());
 
-            ReviewService reviewService = new ReviewService();
+            ReviewService reviewService = Services.resolve(ReviewService.class);
             boolean success = reviewService.writeReview(review);
             if (success) {
                 System.out.println("✅ 리뷰가 등록되었습니다! 감사합니다.");

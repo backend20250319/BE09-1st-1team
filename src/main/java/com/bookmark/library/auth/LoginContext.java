@@ -1,39 +1,52 @@
 package com.bookmark.library.auth;
 
-import com.bookmark.library.dao.MemberDAO;
 import com.bookmark.library.model.Member;
+import com.bookmark.library.service.MemberService;
+import com.bookmark.library.service.Services;
 
 public class LoginContext {
-    private static LoginContext loginContext = new LoginContext();
+    private static LoginContext context;
 
-    private String memberId;
-    private String password;
+    private final String memberId;
+    private final String password;
+
+    private LoginContext(String memberId, String password) {
+        this.memberId = memberId;
+        this.password = password;
+    }
 
     // 로그인 처리
     public static boolean login(String memberId, String password) {
-        boolean isValid = MemberDAO.validateLogin(memberId, password);
-        if (isValid) {
-            loginContext.memberId = memberId;
-            loginContext.password = password;
+        var service = Services.resolve(MemberService.class);
+        if (service.getUserInfo(memberId, password) != null) {
+            context = new LoginContext(memberId, password);
+            return true;
         }
-        return isValid;
+        return false;
     }
 
     // 로그아웃 처리
     public static void logout() {
-        loginContext = null;
+        context = null;
     }
 
     // 현재 로그인한 사용자 정보 가져오기
     public static Member getCurrentUser() {
-        if (isLoggedIn()) {
-            return MemberDAO.getUserInfo(loginContext.memberId, loginContext.password); // Member 객체 반환
+        if (context == null) return null;
+
+        var service = Services.resolve(MemberService.class);
+        var member = service.getUserInfo(context.memberId, context.password);
+        if (member == null) {
+            // 로그인 세션 정보가 유효하지 않으면 로그아웃 처리
+            logout();
+            return null;
         }
-        return null;
+
+        return member;
     }
 
     // 로그인 여부 확인
     public static boolean isLoggedIn() {
-        return loginContext != null && loginContext.memberId != null;
+        return getCurrentUser() != null;
     }
 }

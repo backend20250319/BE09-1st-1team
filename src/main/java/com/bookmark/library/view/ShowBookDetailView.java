@@ -1,24 +1,17 @@
 package com.bookmark.library.view;
 
-import com.bookmark.library.auth.LoginContext;
-import com.bookmark.library.dao.LoanDAO;
-import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.model.Book;
-import com.bookmark.library.model.Member;
 import com.bookmark.library.model.Review;
 import com.bookmark.library.service.LoanService;
 import com.bookmark.library.service.ReviewService;
-import com.bookmark.library.util.DBUtil;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ShowBookDetailView {
-
-    private ReviewService reviewService = new ReviewService();
+    private final ReviewService reviewService = Services.resolve(ReviewService.class);
+    private final LoanService loanService = Services.resolve(LoanService.class);
 
     /***
      *  BOOK-005: 도서 상세 정보 표시

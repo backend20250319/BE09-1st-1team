@@ -1,10 +1,10 @@
 package com.bookmark.library.view;
+
 import com.bookmark.library.model.Book;
 import com.bookmark.library.util.IO;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 public class SearchResultView {
     public static List<Book> searchResults;
 

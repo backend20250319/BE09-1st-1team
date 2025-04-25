@@ -6,8 +6,11 @@ import com.bookmark.library.model.Review;
 import java.util.List;
 
 public class ReviewService {
+    private final ReviewDAO reviewDAO;
 
-    private ReviewDAO reviewDAO = new ReviewDAO();
+    public ReviewService(ReviewDAO reviewDAO) {
+        this.reviewDAO = reviewDAO;
+    }
 
     // 리뷰 작성
     public boolean writeReview(Review review) {

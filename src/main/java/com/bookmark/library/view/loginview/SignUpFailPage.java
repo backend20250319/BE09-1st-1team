@@ -17,7 +17,7 @@ public class SignUpFailPage {
         int choice = IO.readIntLine();
         switch (choice) {
             case 1 -> {
-                SignUpPage.run();  // 회원가입 페이지 재시도
+                new SignUpPage().run();  // 회원가입 페이지 재시도
                 return;
             }
             case 0 -> {

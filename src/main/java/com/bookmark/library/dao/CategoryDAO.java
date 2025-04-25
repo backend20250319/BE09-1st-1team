@@ -6,9 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bookmark.library.util.DBUtil.getConnection;
-
 public class CategoryDAO {
+    private final Connection conn;
+
+    public CategoryDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     public List<Book> getBooksByCategory(String categoryName) {
         List<Book> books = new ArrayList<>();
@@ -17,8 +20,7 @@ public class CategoryDAO {
                 "JOIN categories c ON b.category_id = c.category_id " +
                 "WHERE c.category_name = ?";
 
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, categoryName);
             ResultSet rs = pstmt.executeQuery();
@@ -42,8 +44,7 @@ public class CategoryDAO {
 
     public String getCategoryNameById(int categoryId) {
         String sql = "SELECT category_name FROM categories WHERE category_id = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, categoryId);
             ResultSet rs = pstmt.executeQuery();

@@ -2,7 +2,8 @@ package com.bookmark.library.view.userinfoview;
 
 import com.bookmark.library.auth.LoginContext;
 import com.bookmark.library.model.Member;
-import com.bookmark.library.service.UserEditService;
+import com.bookmark.library.service.MemberService;
+import com.bookmark.library.service.Services;
 import com.bookmark.library.util.IO;
 
 public class InfoEditPage {
@@ -50,7 +51,8 @@ public class InfoEditPage {
         System.out.print("새 이메일: ");
         String email = IO.scanner.nextLine();
 
-        boolean result = UserEditService.updateUser(
+        var memberService = Services.resolve(MemberService.class);
+        boolean result = memberService.updateUser(
                 memberId,
                 password,
                 newUsername,

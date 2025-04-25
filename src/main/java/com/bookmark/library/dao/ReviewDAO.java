@@ -1,23 +1,23 @@
 package com.bookmark.library.dao;
 
 import com.bookmark.library.model.Review;
-import com.bookmark.library.util.DBUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDAO {
+    private final Connection conn;
 
-    // 임시 저장소(db 없이 기능만 구현하기 위해서)
-    private static final List<Review> reviewList = new ArrayList<>();
+    public ReviewDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     // 리뷰 추가
     public boolean insertReview(Review review) {
         String sql = "INSERT INTO reviews (isbn, member_id, content, rating, review_date) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, review.getMemberId());
             pstmt.setString(2, review.getIsbn());
@@ -39,8 +39,7 @@ public class ReviewDAO {
         List<Review> result = new ArrayList<>();
         String sql = "SELECT * FROM reviews WHERE isbn = ?";
 
-        try(Connection conn = DBUtil.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, isbn);
             ResultSet rs = pstmt.executeQuery();
