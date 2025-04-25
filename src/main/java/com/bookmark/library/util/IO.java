@@ -7,10 +7,16 @@ public class IO {
     public static final String RED = "\u001B[31m";
     public static final String RESET = "\u001B[0m";
 
-    public static int readIntLine() {
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        return n;
+    public static int readIntLine(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return scanner.nextInt();
+            } catch (RuntimeException ignored) {
+            } finally {
+                scanner.nextLine();
+            }
+        }
     }
 
     /**
@@ -20,15 +26,14 @@ public class IO {
      * @return 입력된 메뉴 번호
      */
     public static int selectMenu(int max) {
+        return selectMenu(">>> ", max);
+    }
+
+    public static int selectMenu(String prompt, int max) {
         while (true) {
-            System.out.print(">>> ");
-            try {
-                int menu = readIntLine();
-                if (0 <= menu && menu <= max) {
-                    return menu;
-                }
-            } catch (RuntimeException e) {
-                scanner.nextLine(); // 입력 버퍼에 남은 잘못된 문자열 제거
+            int menu = readIntLine(prompt);
+            if (0 <= menu && menu <= max) {
+                return menu;
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.bookmark.library.dao;
 
+import com.bookmark.library.model.Book;
+import com.bookmark.library.model.Loan;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -66,27 +69,40 @@ public class LoanDAO {
         }
     }
 
-    public List<String> getCurrentLoans(String memberId) {
+    public List<Loan> getCurrentLoans(String memberId) {
         String sql = """
-        SELECT b.title
-        FROM loans l
-        JOIN books b ON l.isbn = b.isbn
-        WHERE l.member_id = ? AND l.return_date IS NULL
-    """;
-
-        List<String> loans = new ArrayList<>();
-
+                SELECT loan_id, member_id, loan_date, due_date, return_date, books.*
+                FROM loans
+                JOIN books ON loans.isbn = books.isbn
+                WHERE member_id = ? AND return_date IS NULL
+                """;
+        List<Loan> loans = new ArrayList<>();
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, memberId);
             var rs = pstmt.executeQuery();
             while (rs.next()) {
-                loans.add(rs.getString("title")); // 도서 제목을 리스트에 저장
+                loans.add(new Loan(
+                        rs.getInt("loan_id"),
+                        rs.getString("member_id"),
+                        BookDAO.createBook(rs),
+                        rs.getObject("loan_date", LocalDate.class),
+                        rs.getObject("due_date", LocalDate.class),
+                        rs.getObject("return_date", LocalDate.class)
+                ));
             }
+            return loans;
         } catch (SQLException e) {
-            throw new RuntimeException("📛 대출 중인 도서 제목을 불러오는데 실패했습니다.", e);
+            throw new RuntimeException("Failed to get current loans", e);
         }
-
-        return loans;
     }
-
+    
+    public void returnBook(int loanId) {
+        String sql = "UPDATE loans SET return_date = CURRENT_DATE WHERE loan_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, loanId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to return book", e);
+        }
+    }
 }

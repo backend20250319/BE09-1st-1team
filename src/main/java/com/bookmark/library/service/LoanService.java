@@ -4,6 +4,7 @@ import com.bookmark.library.dao.LoanDAO;
 import com.bookmark.library.exception.LoanFailureException;
 import com.bookmark.library.model.Book;
 import com.bookmark.library.common.LoanFailureReason;
+import com.bookmark.library.model.Loan;
 import com.bookmark.library.model.LoanInfo;
 import com.bookmark.library.model.Member;
 
@@ -71,6 +72,10 @@ public class LoanService {
         return null; // 대출 가능
     }
 
+    public void returnBook(int loanId) {
+        loanDAO.returnBook(loanId);
+    }
+
     public int getLoanCountByBook(String isbn) {
         return loanDAO.getLoanCountByBook(isbn);
     }
@@ -79,7 +84,7 @@ public class LoanService {
         return loanDAO.getLoanCountByMember(memberId);
     }
 
-    public List<String> getCurrentLoans(String memberId) {
+    public List<Loan> getCurrentLoans(String memberId) {
         return loanDAO.getCurrentLoans(memberId);
     }
 }

@@ -51,7 +51,7 @@ public class BookDAO {
         return books;
     }
 
-    private static Book createBook(ResultSet rs) throws SQLException {
+    public static Book createBook(ResultSet rs) throws SQLException {
         return new Book(
                 rs.getString("isbn"),
                 rs.getString("title"),
