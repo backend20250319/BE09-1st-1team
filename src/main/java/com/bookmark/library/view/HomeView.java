@@ -34,10 +34,8 @@ public class HomeView {
         System.out.println("""
                 1. 마이페이지
                 2. 로그아웃
-                
                 3. 통합검색
                 4. 카테고리 전체보기
-                
                 0. 프로그램 종료
                 """);
 
@@ -57,10 +55,8 @@ public class HomeView {
                 
                 1. 회원가입
                 2. 로그인
-                
                 3. 통합검색
                 4. 카테고리 전체보기
-                
                 0. 프로그램 종료
                 """);
 

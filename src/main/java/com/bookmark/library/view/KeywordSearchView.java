@@ -26,7 +26,7 @@ public class KeywordSearchView {
 
             var results = searchService.search(keyword);
             var resultView = new SearchResultView(results);
-            resultView.showSearchResults();
+            resultView.showSearchResults("다시 검색");
         }
     }
 }

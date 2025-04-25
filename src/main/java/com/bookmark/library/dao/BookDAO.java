@@ -3,8 +3,8 @@ package com.bookmark.library.dao;
 import com.bookmark.library.model.Book;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,24 +16,20 @@ public class BookDAO {
         this.conn = conn;
     }
 
-    public static List<Book> getBooksByCategory(int categoryId) {
-        return List.of(); // TODO: 나중에 구현
-    }
-
-    public void insertBook(Book book) throws SQLException {
-        String sql = "INSERT INTO books (isbn, title, category_id, author, publisher, publish_date, introduction, stock_quantity, age_limit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public List<Book> getBooksByCategory(int categoryId) {
+        String sql = "SELECT * FROM books WHERE category_id = ?";
+        List<Book> books = new ArrayList<>();
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, book.isbn());
-            pstmt.setString(2, book.title());
-            pstmt.setInt(3, book.categoryId());
-            pstmt.setString(4, book.author());
-            pstmt.setString(5, book.publisher());
-            pstmt.setDate(6, Date.valueOf(book.publishDate()));
-            pstmt.setString(7, book.introduction());
-            pstmt.setInt(8, book.stockQuantity());
-            pstmt.setInt(9, book.ageLimit());
-            pstmt.executeUpdate();
+            pstmt.setInt(1, categoryId);
+            try (var rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    books.add(createBook(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get books by category", e);
         }
+        return books;
     }
 
     public List<Book> searchBooks(String keyword) {
@@ -46,22 +42,26 @@ public class BookDAO {
 
             try (var rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    books.add(new Book(
-                            rs.getString("isbn"),
-                            rs.getString("title"),
-                            rs.getInt("category_id"),
-                            rs.getString("author"),
-                            rs.getString("publisher"),
-                            rs.getDate("publish_date").toLocalDate(),
-                            rs.getInt("stock_quantity"),
-                            rs.getString("introduction"),
-                            rs.getInt("age_limit")
-                    ));
+                    books.add(createBook(rs));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to search books", e);
         }
         return books;
+    }
+
+    private static Book createBook(ResultSet rs) throws SQLException {
+        return new Book(
+                rs.getString("isbn"),
+                rs.getString("title"),
+                rs.getInt("category_id"),
+                rs.getString("author"),
+                rs.getString("publisher"),
+                rs.getDate("publish_date").toLocalDate(),
+                rs.getInt("stock_quantity"),
+                rs.getString("introduction"),
+                rs.getInt("age_limit")
+        );
     }
 }
