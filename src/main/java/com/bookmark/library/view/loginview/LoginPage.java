@@ -9,10 +9,10 @@ import com.bookmark.library.util.IO;
 public class LoginPage {
     public static void run() {
         while (true) {
-            System.out.print("아이디> ");
+            System.out.print("아이디: ");
             String username = IO.scanner.nextLine();
 
-            System.out.print("비밀번호> ");
+            System.out.print("비밀번호: ");
             String password = IO.scanner.nextLine();
 
             var user = LoginContext.login(username, password);

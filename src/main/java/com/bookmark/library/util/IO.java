@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class IO {
     public static final Scanner scanner = new Scanner(System.in);
+    public static final String RED = "\u001B[31m";
+    public static final String RESET = "\u001B[0m";
 
     public static int readIntLine() {
         int n = scanner.nextInt();
@@ -43,5 +45,7 @@ public class IO {
         scanner.nextLine();
     }
 
-
+    public static void error(String message) {
+        System.out.println(RED + message + RESET);
+    }
 }

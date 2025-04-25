@@ -22,9 +22,8 @@ public class WriteReviewView {
      * @param book 리뷰를 작성할 도서 객체
      */
     public void writeReview(Book book) {
-
-        if (LoginContext.isLoggedIn()) {
-            Member user = LoginContext.getCurrentUser();
+        Member user = LoginContext.getCurrentUser();
+        if (user != null) {
             System.out.println("로그인한 사용자 ID : " + user.getId());
 
             System.out.println("=== [📝 리뷰 작성] ===\n");

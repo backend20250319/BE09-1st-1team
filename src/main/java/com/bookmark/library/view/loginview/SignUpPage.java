@@ -7,14 +7,11 @@ import com.bookmark.library.util.IO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.sql.Date;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
 public class SignUpPage {
     private final MemberService signUpService = Services.resolve(MemberService.class);
-    public static final String mandatory = "\u001B[31m*\u001B[0m";
+    private static final String MANDATORY = IO.RED + "*" + IO.RESET;
 
     public void run() {
         System.out.println("\n====[ 회원가입 ]====");
@@ -36,7 +33,6 @@ public class SignUpPage {
         });
 
         // 사용자명 입력
-        System.out.print("이름 " + mandatory + " : ");
         String username = read("이름", true);
 
         // birth_date 입력
@@ -63,6 +59,7 @@ public class SignUpPage {
             LoginContext.login(member_id, password);
             System.out.println("\n🎉 회원가입이 완료되었습니다!");
             System.out.println("환영합니다, " + username + "님!");
+            IO.pressEnterToProceed();
         }
     }
 
@@ -76,16 +73,16 @@ public class SignUpPage {
 
     private <T> T read(String label, boolean isMandatory, Function<String, T> converter) {
         while (true) {
-            System.out.print(label + (isMandatory ? mandatory : "") + " : ");
+            System.out.print(label + (isMandatory ? MANDATORY : "") + " : ");
             String input = IO.scanner.nextLine().trim();
             if (input.isBlank() && isMandatory) {
-                System.out.println(mandatory + " 필수 정보입니다.");
+                IO.error("필수 정보입니다. 입력해주세요.");
                 continue;
             }
             try {
                 return converter.apply(input);
             } catch (InvalidInputException e) {
-                System.out.println(e.getMessage());
+                IO.error(e.getMessage());
             }
         }
     }

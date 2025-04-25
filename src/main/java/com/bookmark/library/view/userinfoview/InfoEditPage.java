@@ -16,16 +16,10 @@ public class InfoEditPage {
                 ✏️ 개인정보 수정
                 """);
 
-        // 로그인 확인
-        if (!LoginContext.isLoggedIn()) {
-            System.out.println("❌ 로그인 상태가 아닙니다. 먼저 로그인해주세요.");
-            return;
-        }
-
         // 현재 로그인한 사용자 정보 가져오기
         Member user = LoginContext.getCurrentUser();
         if (user == null) {
-            System.out.println("❌ 사용자 정보를 불러오는 데 실패했습니다.");
+            System.out.println("❌ 로그인 상태가 아닙니다. 먼저 로그인해주세요.");
             return;
         }
 

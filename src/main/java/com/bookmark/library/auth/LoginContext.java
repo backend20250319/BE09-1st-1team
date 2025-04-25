@@ -45,9 +45,4 @@ public class LoginContext {
 
         return member;
     }
-
-    // 로그인 여부 확인
-    public static boolean isLoggedIn() {
-        return getCurrentUser() != null;
-    }
 }

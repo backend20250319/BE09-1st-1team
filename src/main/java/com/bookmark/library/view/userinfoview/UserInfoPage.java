@@ -18,8 +18,8 @@ public class UserInfoPage {
     public void run() {
         Member user = LoginContext.getCurrentUser();
 
-        System.out.println("==== BOOKMARK MYPAGE ====");
-        System.out.println(user.getUsername() + "의 마이페이지");
+        System.out.println();
+        System.out.println("==== 마이페이지 ====");
         System.out.println("아이디: " + user.getId());
         System.out.println("이름: " + user.getUsername());
         System.out.println("생년월일: " + user.getBirthDate());
@@ -41,7 +41,7 @@ public class UserInfoPage {
             e.printStackTrace();
         }
 
-
+        System.out.println();
         System.out.print("""
                 1. 개인정보 수정
                 2. 반납
