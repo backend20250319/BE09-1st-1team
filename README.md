@@ -23,7 +23,7 @@
 - 🔍 **도서 검색**: 제목, 저자, 출판사 등 키워드 기반 검색
 - 📘 **도서 상세 정보**: 도서 정보 및 대출 가능 여부 확인
 - 💬 **리뷰 시스템**: 도서 리뷰 작성 및 평점 부여
-- 📥 **대출**: 회원 로그인 후 도서 대출 가능
+- 📥 **대출/반납**: 회원 로그인 후 도서 대출 및 반납 가능
 - 👤 **회원 관리**: 로그인, 회원가입, 정보 수정 기능
 
 ## 🛠 기술 스택
@@ -51,27 +51,23 @@ src/
 ### 물리 설계
 ![Image](https://github.com/user-attachments/assets/0ed6be9a-a11b-4132-bf00-2191fa27e529)
 
+### ▶️ 실행 방법
+1. `MySQL` 서버 실행
+2. `application.properties` 또는 `DBUtil.java`에 DB 연결 정보 설정
+3. `Main.java` 실행
+
 
 ## 📸 스크린샷
 
-### 메인 화면과 도서 검색
+### 유사프로그램 분석 자료 
+- 메인 화면과 도서 검색
 ![Image](https://github.com/user-attachments/assets/83dccda4-394b-4b1e-ac93-419a77512d2e)
 
-### 도서 상세 정보
+- 도서 상세 정보
 ![Image](https://github.com/user-attachments/assets/7ee0107d-41e4-46e3-a2ad-2aaafd15adbb)
 
 
-## 📋 요구사항 명세서
-
-요구사항은 아래 3장의 이미지로 정리되어 있으며, 주요 항목은 다음과 같습니다:
-
-- 회원 관리: 회원가입, 로그인, 정보 수정
-- 도서 관리: 도서 등록, 조회, 검색, 카테고리 분류
-- 대출/반납 시스템: 대출 가능 수량 제한, 연령 제한 확인, 연체 처리
-- 리뷰 기능: 도서 리뷰 작성 및 조회
-- 관리자 기능 (있다면): 도서 관리 및 사용자 정보 접근
-
-## 📷 상세 명세는 아래 이미지 참조  
+### 상세 명세는 아래 이미지 참조  
 
 ![Image](https://github.com/user-attachments/assets/e8a8b571-a382-426b-902c-89ee5a28a365)
 
@@ -84,11 +80,6 @@ src/
 
 
 참고 사이트 : [경기도사이버도서관](https://www.library.kr/cyber/)
-
-# ▶️ 실행 방법
-1. `MySQL` 서버 실행
-2. `application.properties` 또는 `DBUtil.java`에 DB 연결 정보 설정
-3. `Main.java` 실행
 
 
 
