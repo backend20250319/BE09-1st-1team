@@ -51,7 +51,8 @@ src/
 ### 물리 설계
 ![Image](https://github.com/user-attachments/assets/0ed6be9a-a11b-4132-bf00-2191fa27e529)
 
-### ▶️ 실행 방법
+
+## ▶️ 실행 방법
 1. `MySQL` 서버 실행
 2. `application.properties` 또는 `DBUtil.java`에 DB 연결 정보 설정
 3. `Main.java` 실행
