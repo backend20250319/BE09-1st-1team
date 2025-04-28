@@ -56,7 +56,16 @@ public class InfoEditPage {
         );
 
         if (result) {
-            System.out.println("\n✅ 개인정보가 성공적으로 수정되었습니다!");
+            // 수정에 성공하면 업데이트된 현재 세션 정보를 갱신하기 위해 다시 로그인
+            LoginContext.logout();
+            Member updateUser = LoginContext.login(memberId, password);
+
+            if (updateUser != null) {
+                System.out.println("\n✅ 개인정보가 성공적으로 수정되었습니다!");
+
+            } else {
+                System.out.println("\n✅ 개인정보는 수정되었으나 세션 갱신에 실패했습니다. 다시 로그인해주세요.");
+            }
         } else {
             System.out.println("\n❌ 수정에 실패했습니다. 다시 시도해주세요.");
         }

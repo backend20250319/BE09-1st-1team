@@ -21,7 +21,7 @@ public class ReviewService {
     }
 
     // 특정 도서의 모든 리뷰 가져오기 (ISBN 기준)
-    public List<Review> getReviewsByiSbn(String isbn) {
+    public List<Review> getReviewsByISbn(String isbn) {
         return reviewDAO.getReviewsByIsbn(isbn);
     }
 }
