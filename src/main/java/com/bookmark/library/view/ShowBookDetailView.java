@@ -18,7 +18,8 @@ public class ShowBookDetailView {
      * @param book
      */
     public void showBookDetail(Book book) {
-        while (true) {
+        boolean continueLoop = true;
+        while (continueLoop) {
             System.out.println("\n==== [도서 상세 정보] ====\n");
             showBookInfo(book);
             System.out.println();
@@ -32,7 +33,7 @@ public class ShowBookDetailView {
             // 사용자 입력 처리 - 메뉴 최대값은 2
             int choice = IO.selectMenu(2);
             switch (choice) {
-                case 0 -> { return; }
+                case 0 -> continueLoop = false;
                 case 1 -> {
                     // 대출하기
                     var loanView = new LoanView();
@@ -41,6 +42,7 @@ public class ShowBookDetailView {
                 case 2 -> {
                     // 리뷰 작성 페이지로 이동 코드
                     new WriteReviewView().writeReview(book);
+                    // 리뷰 작성 후에는 다음 반복에서 새로운 리뷰 목록을 불러옴
                 }
             }
         }
@@ -48,7 +50,7 @@ public class ShowBookDetailView {
 
     private void showBookReviews(Book book) {
         System.out.println("💬 리뷰");
-        List<Review> reviews = reviewService.getReviewsByiSbn(book.isbn());
+        List<Review> reviews = reviewService.getReviewsByISbn(book.isbn());
         if (reviews.isEmpty()) {
             System.out.println("아직 등록된 리뷰가 없습니다.");
         } else {
