@@ -99,7 +99,7 @@ src/
 
 | 도서 검색 | 검색 결과 | 상세한 도서 정보 |
 |:---------:|:---------:|:----------------:|
-| <img src="https://github.com/user-attachments/assets/b4cad92d-e1fe-42c7-b202-123ef123bbb5" alt="도서 검색" width="300"/> | <img src="https://github.com/user-attachments/assets/618fd90c-8595-4423-a559-22cc797a94d9" alt="검색 결과" width="300"/> | <img src="https://github.com/user-attachments/assets/05cc8a51-5ac4-4a04-a158-150ba9f9dd4d" alt="상세한 도서 정보" width="300"/> |
+| <img src="https://github.com/user-attachments/assets/b4cad92d-e1fe-42c7-b202-123ef123bbb5" alt="도서 검색" width="300"/> | <img src="https://github.com/user-attachments/assets/618fd90c-8595-4423-a559-22cc797a94d9" alt="검색 결과" width="300"/> | <img width="965" alt="Image" src="https://github.com/user-attachments/assets/0f9229d9-9b87-4b15-8048-cf2858108ab1" alt="상세한 도서 정보" width="300"/> |
 
 | 대출 화면 | 대출 DB |
 |:---------:|:---------:|
